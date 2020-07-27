@@ -130,6 +130,49 @@
   <select id="selectCountByAll" resultMap="ClientMap">
   select count(*) from oa_client
   </select>
+  <select id="selectCountByAllWithGoods" resultMap="ClientWithGoodsMap">
+  select count(*) from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
+  </select>
+  <select id="selectCountByAllByCondition" resultMap="ClientMap">
+  select count(*) from oa_client
+  <where >
+    <if test="name!=null and name!=''">
+    and CLINAME=#{cliname}
+    </if>
+    <if test="sex!=null and sex!=''">
+    and CLISEX=#{clisex}
+    </if>
+    <if test="username!=null and username!=''">
+    and CLIUSERNAME = #{cliusername}
+    </if>
+    <if test="password!=null and password!=''">
+    and CLIPASSWORD = #{clipassword}
+    </if>
+    <if test="address!=null and address!=''">
+    and CLIADDRSS=#{cliaddress}
+    </if>
+  </where>
+  </select>
+  <select id="selectCountByAllByConditionWithGoods" resultMap="ClientWithGoodsMap">
+  select count(*) from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
+  <where >
+    <if test="name!=null and name!=''">
+    and cli.CLINAME=#{cliname}
+    </if>
+    <if test="sex!=null and sex!=''">
+    and cli.CLISEX=#{clisex}
+    </if>
+    <if test="username!=null and username!=''">
+    and cli.CLIUSERNAME = #{cliusername}
+    </if>
+    <if test="password!=null and password!=''">
+    and cli.CLIPASSWORD = #{clipassword}
+    </if>
+    <if test="address!=null and address!=''">
+    and cli.CLIADDRSS=#{cliaddress}
+    </if>
+  </where>
+  </select>
   
   <select id="selectGoodsByClientFromCart" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
   select * from oa_goods where GOID in(select GOID from oa_cart where CLIID = #{cliid})

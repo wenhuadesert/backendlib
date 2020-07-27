@@ -23,6 +23,9 @@ public interface IClientMapper {
 	public List<ClientModel> selectListByAllByConditionWithGoodsWithPage(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress,@Param("start")int start, @Param("rows") int rows) throws Exception;
 	public ClientModel selectClientById(int id) throws Exception;
 	public int selectCountByAll() throws Exception;
+	public int selectCountByAllWithGoods() throws Exception;
+	public int selectCountByAllByCondition(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress) throws Exception;
+	public int selectCountByAllByConditionWithGoods(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress) throws Exception;
 	
 	public List<GoodsModel> selectGoodsByClientFromCart(int id) throws Exception;
 }

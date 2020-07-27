@@ -25,6 +25,9 @@ public interface IOrderMapper {
 	public List<OrderModel> selectListByAllWithClientWithGoodsWithPage(@Param("start")int start, @Param("rows") int rows) throws Exception;
 	public OrderModel selectOrderById(int id) throws Exception;
 	public int selectCountByAll() throws Exception;
+	public int selectCountByAllWithGoods() throws Exception;
+	public int selectCountByAllWithClient() throws Exception;
+	public int selectCountByAllWithClientWithGoods() throws Exception;
 	
 	public List<GoodsModel> selectGoodsByOrder(int id) throws Exception;
 	public List<ClientModel> selectClientByOrder(int id) throws Exception;

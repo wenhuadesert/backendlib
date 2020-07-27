@@ -67,6 +67,15 @@
   <select id="selectCountByAll" resultMap="OrderMap">
   select count(*) from oa_order
   </select>
+  <select id="selectCountByAllWithGoods" resultMap="OrderWithGoodsMap">
+  select count(*) from oa_order ord left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
+  </select>
+  <select id="selectCountByAllWithClient" resultMap="OrderWithGoodsMap">
+  select count(*) from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID
+  </select>
+  <select id="selectCountByAllWithClientWithGoods" resultMap="OrderWithGoodsWithGoodsMap">
+  select count(*) from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
+  </select>
   
   <select id="selectGoodsByOrder" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
   select * from oa_goods where GOID in(select GOID from oa_ordergoods where ORDID = #{ordid})

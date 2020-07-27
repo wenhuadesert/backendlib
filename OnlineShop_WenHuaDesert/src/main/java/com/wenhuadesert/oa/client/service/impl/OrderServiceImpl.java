@@ -66,4 +66,87 @@ public class OrderServiceImpl implements IOrderService {
 		return orderMapper.selectCountByAll();
 	}
 
+	@Override
+	public List<OrderModel> getListByAllWithClient() throws Exception {
+		return orderMapper.selectListByAllWithClient();
+	}
+
+	@Override
+	public List<OrderModel> getListByAllWithClientWithGoods() throws Exception {
+		return orderMapper.selectListByAllWithClientWithGoods();
+	}
+
+	@Override
+	public List<OrderModel> getListByAllWithClientWithPage(int start, int rows) throws Exception {
+		return orderMapper.selectListByAllWithClientWithGoodsWithPage(start, rows);
+	}
+
+	@Override
+	public List<OrderModel> getListByAllWithClientWithGoodsWithPage(int start, int rows) throws Exception {
+		return orderMapper.selectListByAllWithClientWithGoodsWithPage(start, rows);
+	}
+
+	@Override
+	public int getCountByAllWithGoods() throws Exception {
+		return orderMapper.selectCountByAllWithGoods();
+	}
+
+	@Override
+	public int getCountByAllWithClient() throws Exception {
+		return orderMapper.selectCountByAllWithClient();
+	}
+
+	@Override
+	public int getCountByAllWithClientWithGoods() throws Exception {
+		return orderMapper.selectCountByAllWithClientWithGoods();
+	}
+
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		int count = this.getCountByAll();
+		int pageCount = 0;
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public int getPageCountByAllWithGoods(int rows) throws Exception {
+		int count = this.getCountByAllWithGoods();
+		int pageCount = 0;
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public int getPageCountByAllWithClient(int rows) throws Exception {
+		int count = this.getCountByAllWithClient();
+		int pageCount = 0;
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public int getPageCountByAllWithClientWithGoods(int rows) throws Exception {
+		int count = this.getCountByAllWithClientWithGoods();
+		int pageCount = 0;
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
+	}
+
 }
