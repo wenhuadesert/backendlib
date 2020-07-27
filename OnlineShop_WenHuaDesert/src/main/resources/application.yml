@@ -1,0 +1,19 @@
+
+server:
+  port: 8080
+ 
+spring:
+  datasource:
+    username: root
+    password: ttn991122
+    url: jdbc:mysql://localhost:3319/wenhua_desert?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+ 
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.wenhuadesert.oa.**.model
+ 
+#showSql
+logging:
+  level:
+    com.wenhuadesert.oa.client.mapper : debug

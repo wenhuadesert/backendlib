@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhuadesert.oa.client.mapper.IOrderMapper">
+  
+  <resultMap id="OrderMap" type="Order">
+    <id property="ordid" column="ORDID"/>
+    <result property="isPaid" column="ORDPAID"/>
+  </resultMap>
+  
+  <resultMap id="OrderWithClientMap" type="Order" extends="OrderMap">
+   <association property="client" resultMap="com.wenhuadesert.oa.client.mapper.IClientMapper"></association>
+  </resultMap>
+  
+  <resultMap id="OrderWithGoodsMap" type="Order" extends="OrderMap">
+    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+      <result property="ogcount" column="OGCOUNT"/>
+    </collection>
+  </resultMap>
+  
+  <resultMap id="OrderWithClientWithGoodsMap" type="Order" extends="OrderWithClientMap">
+    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+      <result property="ogcount" column="OGCOUNT"/>
+    </collection>
+  </resultMap>
+  
+  <insert id="insert" parameterType="Client" keyProperty="ordid"   keyColumn="ORDID"  useGeneratedKeys="true">
+  insert into oa_order (ORDID, ORDPAID) VALUES (#{ordid},#{isPaid})
+  </insert>
+  <update id="update">
+  update oa_order set ORDPAID=#{isPaid} where ORDID = #{ordid}
+  </update>
+  <delete id="delete">
+  delete from oa_order where ORDID = #{ordid}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="OrderMap">
+  select * from oa_order
+  </select>
+  <select id="selectListByAllWithGoods" resultMap="OrderWithGoodsMap">
+  select ord.*,og.OGCOUNT, go.* from oa_order ord left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
+  </select>
+  <select id="selectListByAllWithClient" resultMap="OrderWithGoodsMap">
+  select ord.*, cli.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID
+  </select>
+  <select id="selectListByAllWithClientWithGoods" resultMap="OrderWithGoodsWithGoodsMap">
+  select ord.*, cli.*, og.OGCOUNT, go.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="OrderMap">
+  select * from oa_order limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllWithGoodsWithPage" resultMap="OrderWithGoodsMap">
+  select ord.*, og.OGCOUNT, go.* from oa_order ord left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllWithClientWithPage" resultMap="OrderWithGoodsMap">
+  select ord.*, cli.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllWithClientWithGoodsWithPage" resultMap="OrderWithGoodsWithGoodsMap">
+  select ord.*, cli.*, og.OGCOUNT, go.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID limit #{start}, #{rows}
+  </select>
+  
+  <select id="selectClientById" resultMap="OrderMap">
+  select * from oa_order where ORDID = #{ordid}
+  </select>
+  <select id="selectCountByAll" resultMap="OrderMap">
+  select count(*) from oa_order
+  </select>
+  
+  <select id="selectGoodsByOrder" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+  select * from oa_goods where GOID in(select GOID from oa_ordergoods where ORDID = #{ordid})
+  </select>
+  
+  <select id="selectClientByOrder" resultMap="com.wenhuadesert.oa.client.mapper.IClientMapper">
+  select * from oa_client where CLIID in(select CLIID from oa_ordergoods where ORDID = #{ordid})
+  </select>
+ </mapper>

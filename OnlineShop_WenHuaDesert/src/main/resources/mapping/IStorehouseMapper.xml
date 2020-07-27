@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhuadesert.oa.goods.mapper.IStorehouseMapper">
+	<resultMap id="StorehouseResultMap" type="Storehouse" >
+		<id property="storehouseId" column="STHID"/>
+		<result property="address" column="STHADDRESS"/>		
+		<result property="capacity" column="STHCAPACITY"/>		
+	</resultMap>
+	
+	<insert id="insert" parameterType="Storehouse" keyProperty="storehouseId"   keyColumn="STHID"  useGeneratedKeys="true">
+	insert into oa_storehouse (STHADDRESS,STHCAPACITY) values (#{address},#{capacity})
+ 	</insert>
+	
+	<update id="update">
+ 	update  oa_storehouse set STHADDRESS=#{address},STHCAPACITY=#{capacity} where STHID=#{storehouseId}
+ 	</update>
+ 	
+ 	<delete id="delete">
+ 	delete from oa_storehouse where STHID=#{storehouseId}
+ 	</delete>
+ 	
+ 	<select id="selectListByAll"  resultMap="StorehouseResultMap">
+ 	select *  from oa_storehouse
+ 	</select>
+
+	<select id="selectListByAllWithPage" resultMap="StorehouseResultMap">
+ 	select *  from oa_storehouse limit #{start},#{rows}
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="_int">
+ 	select count(*) from oa_storehouse
+ 	</select>
+ 	
+ 	<select id="selectById"  resultMap="StorehouseResultMap">
+ 	select * from oa_storehouse where STHID=#{storehouseId}
+ 	</select>
+
+</mapper>
