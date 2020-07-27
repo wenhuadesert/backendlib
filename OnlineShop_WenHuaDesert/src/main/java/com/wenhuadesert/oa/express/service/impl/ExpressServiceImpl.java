@@ -52,4 +52,16 @@ public class ExpressServiceImpl implements IExpressService {
 		return expressMapper.selectCountByAll();
 	}
 
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		int count = this.getCountByAll();
+		int pageCount = 0;
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
+	}
+
 }

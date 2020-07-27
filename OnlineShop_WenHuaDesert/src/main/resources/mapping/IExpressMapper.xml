@@ -99,5 +99,31 @@
   <select id="selectCountByAll" resultMap="ExpressMap">
   select count(*) from oa_express
   </select>
+  <select id="selectCountByAllByCondition" resultMap="ExpressMap">
+  select count(*) from oa_express where
+    <if test="isArrived!=null">
+    EXPARRIVED = #{isArrived}
+    </if>
+  </select>
+  <select id="selectCountByAllWithCompany" resultMap="ExpressWithCompanyMap">
+  select count(*) from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  </select>
+  <select id="selectCountByAllWithOrder" resultMap="ExpressWithOrderMap">
+  select count(*) from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID 
+  </select>
+  <select id="selectCountByAllWithCompanyWithOrder" resultMap="ExpressWithCompanyWithOrderMap">
+  select count(*) from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
+  </select>
+  <select id="selectCountByAllByConditionWithCompany" resultMap="ExpressWithCompanyMap">
+  select count(*) from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  <where>
+    <if test="isArrived!=null">
+    exp.EXPARRIVED = #{isArrived}
+    </if>
+    <if test="expressCompany.name!=null">
+    exc.EXCNAME = #{expressCompany.name}
+    </if>
+  </where>
+  </select>
   
  </mapper>

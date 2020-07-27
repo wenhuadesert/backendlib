@@ -30,4 +30,9 @@ public interface IExpressMapper {
 	
 	public ExpressModel selectExpressById(int id)throws Exception;
 	public int selectCountByAll() throws Exception;
+	public int selectCountByAllByCondition(boolean isArrived) throws Exception;
+	public int selectCountByAllWithCompany() throws Exception;
+	public int selectCountByAllWithOrder() throws Exception;
+	public int selectCountByAllWithCompanyWithOrder() throws Exception;
+	public int selectCountByAllByConditionWithCompany(@Param("isArrived")boolean isArrived, @Param("expressCompany")ExpressCompanyModel expressCompany) throws Exception;
 }
