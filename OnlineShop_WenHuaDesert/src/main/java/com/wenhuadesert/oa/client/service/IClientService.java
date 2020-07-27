@@ -13,10 +13,10 @@ public interface IClientService {
 	public List<ClientModel> getListByAllWithGoods() throws Exception;
 	public List<ClientModel> getListByAllByCondition(String name, String sex,String username, String password, String address) throws Exception;
 	public List<ClientModel> getListByAllByConditionWithGoods(String name, String sex,String username, String password, String address) throws Exception;
-	public List<ClientModel> getListByAllWithPage(int start,  int rows) throws Exception;
-	public List<ClientModel> getListByAllWithGoodsWithPage(int start, int rows) throws Exception;
-	public List<ClientModel> getListByAllByConditionWithPage(String name, String sex,String username, String password, String address,int start,  int rows) throws Exception;
-	public List<ClientModel> getListByAllByConditionWithGoodsWithPage(String name, String sex,String username, String password,String address,int start,  int rows) throws Exception;
+	public List<ClientModel> getListByAllWithPage(int page,  int rows) throws Exception;
+	public List<ClientModel> getListByAllWithGoodsWithPage(int page, int rows) throws Exception;
+	public List<ClientModel> getListByAllByConditionWithPage(String name, String sex,String username, String password, String address,int page,  int rows) throws Exception;
+	public List<ClientModel> getListByAllByConditionWithGoodsWithPage(String name, String sex,String username, String password,String address,int page,  int rows) throws Exception;
 
 	public ClientModel getClientById(int id) throws Exception;
 	public int getCountByAll() throws Exception;

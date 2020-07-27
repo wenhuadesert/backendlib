@@ -9,13 +9,13 @@
     <result property="isArrived" column="EXPARRIVED"/>
   </resultMap>
   <resultMap id="ExpressWithCompanyMap" type="Express" extends="ExpressMap">
-    <association property="expressCompany" resultMap="com.wenhuadesert.oa.expresscompany.mapper.IExpressCompanyMapper"/>
+    <association property="expressCompany" resultMap="com.wenhuadesert.oa.express.mapper.IExpressCompanyMapper.ExpressCompanyMap"/>
   </resultMap>
   <resultMap id="ExpressWithOrderMap" type="Express" extends="ExpressMap" >
-    <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper"/>
+    <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper.OrderMap"/>
   </resultMap>
   <resultMap id="ExpressWithCompanyWithOrderMap" type="Express" extends="ExpressWithCompanyMap" >
-    <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper"/>
+    <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper.OrderMap"/>
   </resultMap>
   
   <insert id="insert" parameterType="Express" keyProperty="expressId"   keyColumn="EXPID"  useGeneratedKeys="true">
@@ -93,28 +93,28 @@
   limit #{start}, #{rows}
   </select>
   
-  <select id="selectEmployeeById" resultMap="ExpressMap">
+  <select id="selectExpressById" resultMap="ExpressMap">
   select * from oa_express where EXCID = #{expid}
   </select>
-  <select id="selectCountByAll" resultMap="ExpressMap">
+  <select id="selectCountByAll" resultType="_int">
   select count(*) from oa_express
   </select>
-  <select id="selectCountByAllByCondition" resultMap="ExpressMap">
+  <select id="selectCountByAllByCondition" resultType="_int">
   select count(*) from oa_express where
     <if test="isArrived!=null">
     EXPARRIVED = #{isArrived}
     </if>
   </select>
-  <select id="selectCountByAllWithCompany" resultMap="ExpressWithCompanyMap">
+  <select id="selectCountByAllWithCompany" resultType="_int">
   select count(*) from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
   </select>
-  <select id="selectCountByAllWithOrder" resultMap="ExpressWithOrderMap">
+  <select id="selectCountByAllWithOrder" resultType="_int">
   select count(*) from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID 
   </select>
-  <select id="selectCountByAllWithCompanyWithOrder" resultMap="ExpressWithCompanyWithOrderMap">
+  <select id="selectCountByAllWithCompanyWithOrder" resultType="_int">
   select count(*) from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
   </select>
-  <select id="selectCountByAllByConditionWithCompany" resultMap="ExpressWithCompanyMap">
+  <select id="selectCountByAllByConditionWithCompany" resultType="_int">
   select count(*) from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
   <where>
     <if test="isArrived!=null">

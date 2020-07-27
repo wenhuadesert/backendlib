@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages= {"com.wenhuadesert.oa.*.mapper"})
+@MapperScan(basePackages= {"com.wenhuadesert.oa.**.mapper"})
 public class OnlineShopWenHuaDesertApplication {
 
 	public static void main(String[] args) {

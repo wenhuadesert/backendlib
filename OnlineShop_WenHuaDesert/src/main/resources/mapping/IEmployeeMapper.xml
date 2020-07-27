@@ -31,7 +31,7 @@
   <select id="selectEmployeeById" resultMap="EmployeeMap">
   select * from oa_employee where EMPID = #{empid}
   </select>
-  <select id="selectCountByAll" resultMap="EmployeeMap">
+  <select id="selectCountByAll" resultType="_int">
   select count(*) from oa_employee
   </select>
 </mapper>

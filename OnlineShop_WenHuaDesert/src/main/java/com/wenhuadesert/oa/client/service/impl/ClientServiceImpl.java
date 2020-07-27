@@ -43,13 +43,13 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public List<ClientModel> getListByAllWithPage(int start, int rows) throws Exception {
-		return clientMapper.selectListByAllWithPage(start, rows);
+	public List<ClientModel> getListByAllWithPage(int page, int rows) throws Exception {
+		return clientMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 
 	@Override
-	public List<ClientModel> getListByAllWithGoodsWithPage(int start, int rows) throws Exception {
-		return clientMapper.selectListByAllWithGoodsWithPage(start, rows);
+	public List<ClientModel> getListByAllWithGoodsWithPage(int page, int rows) throws Exception {
+		return clientMapper.selectListByAllWithGoodsWithPage(rows * (page - 1), rows);
 	}
 
 	@Override
@@ -99,14 +99,14 @@ public class ClientServiceImpl implements IClientService {
 
 	@Override
 	public List<ClientModel> getListByAllByConditionWithPage(String name, String sex, String username, String password,
-			String address, int start, int rows) throws Exception {
-		return clientMapper.selectListByAllByConditionWithGoodsWithPage(name, sex, username, password, address, start, rows);
+			String address, int rows, int page) throws Exception {
+		return clientMapper.selectListByAllByConditionWithGoodsWithPage(name, sex, username, password, address, rows * (page - 1), rows);
 	}
 
 	@Override
 	public List<ClientModel> getListByAllByConditionWithGoodsWithPage(String name, String sex, String username,
-			String password, String address, int start, int rows) throws Exception {
-		return clientMapper.selectListByAllByConditionWithPage(name, sex, username, password, address, start, rows);
+			String password, String address, int rows, int page) throws Exception {
+		return clientMapper.selectListByAllByConditionWithPage(name, sex, username, password, address, rows * (page - 1), rows);
 	}
 
 	@Override

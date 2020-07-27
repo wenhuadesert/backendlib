@@ -13,10 +13,10 @@ public interface IOrderService {
 	public List<OrderModel> getListByAllWithGoods() throws Exception;
 	public List<OrderModel> getListByAllWithClient() throws Exception;
 	public List<OrderModel> getListByAllWithClientWithGoods() throws Exception;
-	public List<OrderModel> getListByAllWithPage(int start,  int rows) throws Exception;
-	public List<OrderModel> getListByAllWithGoodsWithPage(int start,  int rows) throws Exception;
-	public List<OrderModel> getListByAllWithClientWithPage(int start,  int rows) throws Exception;
-	public List<OrderModel> getListByAllWithClientWithGoodsWithPage(int start,  int rows) throws Exception;
+	public List<OrderModel> getListByAllWithPage(int page,  int rows) throws Exception;
+	public List<OrderModel> getListByAllWithGoodsWithPage(int page,  int rows) throws Exception;
+	public List<OrderModel> getListByAllWithClientWithPage(int page,  int rows) throws Exception;
+	public List<OrderModel> getListByAllWithClientWithGoodsWithPage(int page,  int rows) throws Exception;
 	public OrderModel getOrderById(int id) throws Exception;
 	public int getCountByAll() throws Exception;
 	public int getCountByAllWithGoods() throws Exception;

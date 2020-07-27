@@ -43,15 +43,15 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public List<OrderModel> getListByAllWithPage(int start, int rows) throws Exception {
+	public List<OrderModel> getListByAllWithPage(int page, int rows) throws Exception {
 
-		return orderMapper.selectListByAllWithPage(start, rows);
+		return orderMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 
 	@Override
-	public List<OrderModel> getListByAllWithGoodsWithPage(int start, int rows) throws Exception {
+	public List<OrderModel> getListByAllWithGoodsWithPage(int page, int rows) throws Exception {
 
-		return orderMapper.selectListByAllWithGoodsWithPage(start, rows);
+		return orderMapper.selectListByAllWithGoodsWithPage(rows * (page - 1), rows);
 	}
 
 	@Override
@@ -77,13 +77,13 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public List<OrderModel> getListByAllWithClientWithPage(int start, int rows) throws Exception {
-		return orderMapper.selectListByAllWithClientWithGoodsWithPage(start, rows);
+	public List<OrderModel> getListByAllWithClientWithPage(int page, int rows) throws Exception {
+		return orderMapper.selectListByAllWithClientWithGoodsWithPage(rows * (page - 1), rows);
 	}
 
 	@Override
-	public List<OrderModel> getListByAllWithClientWithGoodsWithPage(int start, int rows) throws Exception {
-		return orderMapper.selectListByAllWithClientWithGoodsWithPage(start, rows);
+	public List<OrderModel> getListByAllWithClientWithGoodsWithPage(int page, int rows) throws Exception {
+		return orderMapper.selectListByAllWithClientWithGoodsWithPage(rows * (page - 1), rows);
 	}
 
 	@Override

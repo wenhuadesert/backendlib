@@ -14,7 +14,7 @@
   </resultMap>
   
   <resultMap id="ClientWithGoodsMap" type="Client" extends="ClientMap">
-    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
       <result property="cacount" column="CACOUNT"/>
     </collection>
   </resultMap>
@@ -76,7 +76,7 @@
   </where>
   </select>
   <select id="selectListByAllWithPage" resultMap="ClientMap">
-  select * from oa_client limit #{clistart}, #{clirows}
+  select * from oa_client limit #{start}, #{rows}
   </select>
   <select id="selectListByAllByConditionWithPage" resultMap="ClientMap">
   select * from oa_client
@@ -127,10 +127,10 @@
   <select id="selectClientById" resultMap="ClientMap">
   select * from oa_client where CLIID = #{cliid}
   </select>
-  <select id="selectCountByAll" resultMap="ClientMap">
+  <select id="selectCountByAll" resultType="_int">
   select count(*) from oa_client
   </select>
-  <select id="selectCountByAllWithGoods" resultMap="ClientWithGoodsMap">
+  <select id="selectCountByAllWithGoods" resultType="_int">
   select count(*) from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
   </select>
   <select id="selectCountByAllByCondition" resultMap="ClientMap">
@@ -153,7 +153,7 @@
     </if>
   </where>
   </select>
-  <select id="selectCountByAllByConditionWithGoods" resultMap="ClientWithGoodsMap">
+  <select id="selectCountByAllByConditionWithGoods" resultType="_int">
   select count(*) from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
   <where >
     <if test="name!=null and name!=''">
@@ -174,7 +174,7 @@
   </where>
   </select>
   
-  <select id="selectGoodsByClientFromCart" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+  <select id="selectGoodsByClientFromCart" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
   select * from oa_goods where GOID in(select GOID from oa_cart where CLIID = #{cliid})
   </select>
  </mapper>

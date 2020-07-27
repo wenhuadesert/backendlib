@@ -37,8 +37,8 @@ public class ExpressCompanyServiceImpl implements IExpressCompanyService {
 	}
 
 	@Override
-	public List<ExpressCompanyModel> getListByAllWithPage(int start, int rows) throws Exception {
-		return expressCompanyMapper.selectListByAllWithPage(start, rows);
+	public List<ExpressCompanyModel> getListByAllWithPage(int page, int rows) throws Exception {
+		return expressCompanyMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 
 	@Override

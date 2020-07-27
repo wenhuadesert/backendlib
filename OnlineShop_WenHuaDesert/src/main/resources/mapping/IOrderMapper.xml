@@ -10,17 +10,17 @@
   </resultMap>
   
   <resultMap id="OrderWithClientMap" type="Order" extends="OrderMap">
-   <association property="client" resultMap="com.wenhuadesert.oa.client.mapper.IClientMapper"></association>
+   <association property="client" resultMap="com.wenhuadesert.oa.client.mapper.IClientMapper.ClientMap"></association>
   </resultMap>
   
   <resultMap id="OrderWithGoodsMap" type="Order" extends="OrderMap">
-    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
       <result property="ogcount" column="OGCOUNT"/>
     </collection>
   </resultMap>
   
   <resultMap id="OrderWithClientWithGoodsMap" type="Order" extends="OrderWithClientMap">
-    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+    <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
       <result property="ogcount" column="OGCOUNT"/>
     </collection>
   </resultMap>
@@ -44,7 +44,7 @@
   <select id="selectListByAllWithClient" resultMap="OrderWithGoodsMap">
   select ord.*, cli.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID
   </select>
-  <select id="selectListByAllWithClientWithGoods" resultMap="OrderWithGoodsWithGoodsMap">
+  <select id="selectListByAllWithClientWithGoods" resultMap="OrderWithClientWithGoodsMap">
   select ord.*, cli.*, og.OGCOUNT, go.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
   </select>
   
@@ -57,31 +57,31 @@
   <select id="selectListByAllWithClientWithPage" resultMap="OrderWithGoodsMap">
   select ord.*, cli.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID limit #{start}, #{rows}
   </select>
-  <select id="selectListByAllWithClientWithGoodsWithPage" resultMap="OrderWithGoodsWithGoodsMap">
+  <select id="selectListByAllWithClientWithGoodsWithPage" resultMap="OrderWithClientWithGoodsMap">
   select ord.*, cli.*, og.OGCOUNT, go.* from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID limit #{start}, #{rows}
   </select>
   
-  <select id="selectClientById" resultMap="OrderMap">
+  <select id="selectOrderById" resultMap="OrderMap">
   select * from oa_order where ORDID = #{ordid}
   </select>
-  <select id="selectCountByAll" resultMap="OrderMap">
+  <select id="selectCountByAll" resultType="_int">
   select count(*) from oa_order
   </select>
-  <select id="selectCountByAllWithGoods" resultMap="OrderWithGoodsMap">
+  <select id="selectCountByAllWithGoods" resultType="_int">
   select count(*) from oa_order ord left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
   </select>
-  <select id="selectCountByAllWithClient" resultMap="OrderWithGoodsMap">
+  <select id="selectCountByAllWithClient" resultType="_int">
   select count(*) from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID
   </select>
-  <select id="selectCountByAllWithClientWithGoods" resultMap="OrderWithGoodsWithGoodsMap">
+  <select id="selectCountByAllWithClientWithGoods" resultType="_int">
   select count(*) from oa_order ord left outer join oa_client cli on ord.CLIID=cli.CLIID left outer join oa_ordergoods og on ord.ORDID=og.ORDID left outer join oa_goods go on og.GOID=go.GOID
   </select>
   
-  <select id="selectGoodsByOrder" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+  <select id="selectGoodsByOrder" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
   select * from oa_goods where GOID in(select GOID from oa_ordergoods where ORDID = #{ordid})
   </select>
   
-  <select id="selectClientByOrder" resultMap="com.wenhuadesert.oa.client.mapper.IClientMapper">
+  <select id="selectClientByOrder" resultMap="com.wenhuadesert.oa.client.mapper.IClientMapper.ClientMap">
   select * from oa_client where CLIID in(select CLIID from oa_ordergoods where ORDID = #{ordid})
   </select>
  </mapper>

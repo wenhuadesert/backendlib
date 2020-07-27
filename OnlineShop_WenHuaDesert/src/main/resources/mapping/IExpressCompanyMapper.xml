@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wenhuadesert.oa.expresscompany.mapper.IExpressCompanyMapper">
+<mapper namespace="com.wenhuadesert.oa.express.mapper.IExpressCompanyMapper">
   
   <resultMap id="ExpressCompanyMap" type="ExpressCompany">
     <id property="excid" column="EXCID"/>
@@ -51,7 +51,7 @@
   <select id="selectCompanyById" resultMap="ExpressCompanyMap">
   select * from oa_expresscompany where EXCID = #{excid}
   </select>
-  <select id="selectCountByAll" resultMap="ExpressCompanyMap">
+  <select id="selectCountByAll" resultType="_int">
   select count(*) from oa_expresscompany
   </select>
  </mapper>

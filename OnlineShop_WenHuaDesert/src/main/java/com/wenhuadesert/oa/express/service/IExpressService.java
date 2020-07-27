@@ -11,7 +11,7 @@ public interface IExpressService {
 	public void delete(ExpressModel em) throws Exception;
 	public void modify(ExpressModel em) throws Exception;
 	public List<ExpressModel> getListByAll() throws Exception;
-	public List<ExpressModel> getListByAllWithPage(@Param("start")int start, @Param("rows") int rows) throws Exception;
+	public List<ExpressModel> getListByAllWithPage(@Param("page")int page, @Param("rows") int rows) throws Exception;
 	public ExpressModel getExpressById(int id)throws Exception;
 	public int getCountByAll() throws Exception;
 	public int getPageCountByAll(int rows) throws Exception;
