@@ -1,6 +1,7 @@
 package com.wenhuadesert.oa.client.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.wenhuadesert.oa.restresult.Result;
 
 @RestController
 @RequestMapping(value="/order")
+@CrossOrigin
 public class OrderController {
 
 	@Autowired

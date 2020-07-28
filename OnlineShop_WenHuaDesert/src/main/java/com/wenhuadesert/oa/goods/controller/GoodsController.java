@@ -1,6 +1,7 @@
 package com.wenhuadesert.oa.goods.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.wenhuadesert.oa.goods.service.IGoodsService;
 
 @RestController
 @RequestMapping(value = "/goods")
+@CrossOrigin
 public class GoodsController {
 	
 	@Autowired
