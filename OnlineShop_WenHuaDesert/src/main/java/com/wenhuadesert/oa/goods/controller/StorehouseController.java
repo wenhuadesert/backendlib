@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class StorehouseController {
 	private IStorehouseService storehouseService = null;
 
 	@PostMapping(value = "/add")
-	public Result<String> add(StorehouseModel storehouseModel) throws Exception {
+	public Result<String> add(@RequestBody StorehouseModel storehouseModel) throws Exception {
 		storehouseService.add(storehouseModel);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -30,7 +31,7 @@ public class StorehouseController {
 	}
 
 	@PostMapping(value = "/modify")
-	public Result<String> modify(StorehouseModel storehouseModel) throws Exception {
+	public Result<String> modify(@RequestBody StorehouseModel storehouseModel) throws Exception {
 		storehouseService.modify(storehouseModel);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -39,7 +40,7 @@ public class StorehouseController {
 	}
 
 	@PostMapping(value = "/delete")
-	public Result<String> delete(StorehouseModel storehouseModel) throws Exception {
+	public Result<String> delete(@RequestBody StorehouseModel storehouseModel) throws Exception {
 		storehouseService.delete(storehouseModel);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");

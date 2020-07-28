@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class ClientController {
 	private IClientService cs = null;
 	
 	@PostMapping(value = "/add")
-	public Result<String> add(ClientModel em) throws Exception {
+	public Result<String> add(@RequestBody ClientModel em) throws Exception {
 		cs.add(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -30,7 +31,7 @@ public class ClientController {
 	}
 	
 	@PostMapping(value = "/modify")
-	public Result<String> modify(ClientModel em) throws Exception {
+	public Result<String> modify(@RequestBody ClientModel em) throws Exception {
 		cs.modify(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -39,7 +40,7 @@ public class ClientController {
 	}
 	
 	@PostMapping(value="/delete")
-	public Result<String> delete(ClientModel em) throws Exception{
+	public Result<String> delete(@RequestBody ClientModel em) throws Exception{
 		cs.delete(em);
 		Result<String> result=new Result<String>();
 		result.setStatus("ok");

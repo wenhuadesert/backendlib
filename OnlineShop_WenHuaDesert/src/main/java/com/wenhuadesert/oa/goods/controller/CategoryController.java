@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class CategoryController {
 	private ICategoryService categoryService=null;
 	
 	@PostMapping(value = "/add")
-	public Result<String> add(CategoryModel categoryModel) throws Exception {
+	public Result<String> add(@RequestBody CategoryModel categoryModel) throws Exception {
 		categoryService.add(categoryModel);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -30,7 +31,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping(value = "/modify")
-	public Result<String> modify(CategoryModel categoryModel) throws Exception {
+	public Result<String> modify(@RequestBody CategoryModel categoryModel) throws Exception {
 		categoryService.modify(categoryModel);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -39,7 +40,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping(value="/delete")
-	public Result<String> delete(CategoryModel categoryModel) throws Exception{
+	public Result<String> delete(@RequestBody CategoryModel categoryModel) throws Exception{
 		categoryService.delete(categoryModel);
 		Result<String> result=new Result<String>();
 		result.setStatus("ok");
