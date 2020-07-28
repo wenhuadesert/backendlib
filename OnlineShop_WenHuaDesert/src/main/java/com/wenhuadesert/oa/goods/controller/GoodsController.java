@@ -65,7 +65,7 @@ public class GoodsController {
 	@GetMapping(value="/get")
 	public Result<GoodsModel> getByNo(@RequestParam(required = true)int no) throws Exception{
 		Result<GoodsModel> result=new Result<GoodsModel>();
-		result.setResult(goodsService.getByNo(no));
+		result.setResult(goodsService.getByNoWithCategoryAndStorehouse(no));
 		
 		result.setStatus("ok");
 		result.setMessage("取得商品成功");

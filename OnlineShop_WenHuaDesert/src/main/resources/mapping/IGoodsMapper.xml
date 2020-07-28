@@ -21,24 +21,24 @@
 	
 	<!-- 关联仓库的结果映射 -->
  	<resultMap id="GoodsWithStorehouseResultMap" type="Goods" extends="GoodsResultMap">
-		<!--
-		<association property="storehouse" resultMap="com.wenhuadesert.oa.storehouse.mapper.IStorehouseMapper.StorehouseResultMap" />
-		-->
+		
+		<association property="storehouse" resultMap="com.wenhuadesert.oa.goods.mapper.IStorehouseMapper.StorehouseResultMap" />
+		
 	</resultMap>
 	
 	<!-- 关联类别和仓库的结果映射 -->
  	<resultMap id="GoodsWithCategoryAndStorehouseResultMap" type="Goods" extends="GoodsWithCategoryResultMap">
-		<!--
-		<association property="storehouse" resultMap="com.wenhuadesert.oa.storehouse.mapper.IStorehouseMapper.StorehouseResultMap" />
-		-->
+		
+		<association property="storehouse" resultMap="com.wenhuadesert.oa.goods.mapper.IStorehouseMapper.StorehouseResultMap" />
+		
 	</resultMap>
  	
 	<insert id="insert" parameterType="Goods" keyProperty="goodsId"   keyColumn="GOID"  useGeneratedKeys="true">
-	insert into oa_goods (CATID,GOTAG,GOPRICE,STHID,GOSTOCK,BRAND) values (#{category.categoryId},#{goodsTag},#{price},#{storehouse.id},#{goodsStock},#{brand})
+	insert into oa_goods (CATID,GOTAG,GOPRICE,STHID,GOSTOCK,BRAND) values (#{category.categoryId},#{goodsTag},#{price},#{storehouse.storehouseId},#{goodsStock},#{brand})
  	</insert>
   
  	<update id="update">
- 	update  oa_goods set CATID=#{category.categoryId},GOTAG=#{goodsTag},GOPRICE=#{price},STHID=#{storehouse.id},GOSTOCK=#{goodsStock},BRAND=#{brand} where GOID=#{goodsId}
+ 	update  oa_goods set CATID=#{category.categoryId},GOTAG=#{goodsTag},GOPRICE=#{price},STHID=#{storehouse.storehouseId},GOSTOCK=#{goodsStock},BRAND=#{brand} where GOID=#{goodsId}
  	</update>
   
 	<delete id="delete">
