@@ -50,5 +50,18 @@ public class ExpressCompanyServiceImpl implements IExpressCompanyService {
 	public int getCountByAll() throws Exception {
 		return expressCompanyMapper.selectCountByAll();
 	}
+	@Override
+	public int getPageCountByAll(int rows) throws Exception{
+		
+			int count = this.getCountByAll();
+			int pageCount = 0;
+			if (count % rows == 0) {
+				pageCount = count / rows;
+			} else {
+				pageCount = count / rows + 1;
+			}
+			return pageCount;
+		
+	}
 
 }
