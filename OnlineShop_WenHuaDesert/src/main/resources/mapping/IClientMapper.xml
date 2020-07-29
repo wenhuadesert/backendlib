@@ -23,7 +23,7 @@
   insert into oa_client (CLIID, CLINAME, CLISEX, CLIUSERNAME, CLIPASSWORD, CLIADDRESS) VALUES (#{cliid},#{cliname},#{clisex},#{cliusername},#{clipassword},#{cliaddress})
   </insert>
   <update id="update">
-  update oa_client set CLINAME = #{cliname},CLISEX=#{clisex}, CLIUSERNAME = #{cliusername}, CLIPASSWORD = #{clipassword}, CLIADDRSS=#{cliaddress} where CLIID = #{cliid}
+  update oa_client set CLINAME = #{cliname},CLISEX=#{clisex}, CLIUSERNAME = #{cliusername}, CLIPASSWORD = #{clipassword}, CLIADDRESS=#{cliaddress} where CLIID = #{cliid}
   </update>
   <delete id="delete">
   delete from oa_client where CLIID = #{cliid}
@@ -51,7 +51,7 @@
     and CLIPASSWORD = #{clipassword}
     </if>
     <if test="address!=null and address!=''">
-    and CLIADDRSS=#{cliaddress}
+    and CLIADDRESS=#{cliaddress}
     </if>
   </where>
   </select>
@@ -71,7 +71,7 @@
     and cli.CLIPASSWORD = #{clipassword}
     </if>
     <if test="address!=null and address!=''">
-    and cli.CLIADDRSS=#{cliaddress}
+    and cli.CLIADDRESS=#{cliaddress}
     </if>
   </where>
   </select>
@@ -94,7 +94,7 @@
     and CLIPASSWORD = #{password}
     </if>
     <if test="address!=null and address!=''">
-    and CLIADDRSS=#{cliaddress}
+    and CLIADDRESS=#{cliaddress}
     </if>
   </where>
   limit #{start}, #{rows}
@@ -118,7 +118,7 @@
     and cli.CLIPASSWORD = #{clipassword}
     </if>
     <if test="address!=null and address!=''">
-    and cli.CLIADDRSS=#{cliaddress}
+    and cli.CLIADDRESS=#{cliaddress}
     </if>
   </where>
   limit #{start}, #{rows}
@@ -149,7 +149,7 @@
     and CLIPASSWORD = #{clipassword}
     </if>
     <if test="address!=null and address!=''">
-    and CLIADDRSS=#{cliaddress}
+    and CLIADDRESS=#{cliaddress}
     </if>
   </where>
   </select>
@@ -169,7 +169,7 @@
     and cli.CLIPASSWORD = #{clipassword}
     </if>
     <if test="address!=null and address!=''">
-    and cli.CLIADDRSS=#{cliaddress}
+    and cli.CLIADDRESS=#{cliaddress}
     </if>
   </where>
   </select>
