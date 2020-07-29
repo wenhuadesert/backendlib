@@ -48,7 +48,7 @@ public class ClientController {
 		return result;
 	}
 	
-	@GetMapping(value="/list/all/page")
+	@RequestMapping(value="/list/all/page")
 	public Result<ClientModel> getListByAllWithPage(@RequestParam(required = false,defaultValue = "10")int rows,@RequestParam(required = false,defaultValue = "1")int page) throws Exception{
 		Result<ClientModel> result=new Result<ClientModel>();
 		result.setCount(cs.getCountByAll());
@@ -56,7 +56,6 @@ public class ClientController {
 		result.setPage(page);
 		result.setRows(rows);
 		result.setList(cs.getListByAllWithPage(rows, page));
-		
 		result.setStatus("ok");
 		result.setMessage("取得商品列表分页成功");
 		return result;

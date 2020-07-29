@@ -54,7 +54,7 @@ public class EmployeeController {
 		result.setPage(page);
 		result.setRows(rows);
 		result.setList(es.getListByAllWithPage(rows, page));
-		result.setStatus("OK");
+		result.setStatus("ok");
 		result.setMessage("取得部门列表分页方式成功");
 		return result;
 	}
