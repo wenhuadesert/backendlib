@@ -73,7 +73,10 @@ public class ClientController {
 	}
 
 	@PostMapping(value = "/cart/add")
-	public Result<String> addCart(@RequestParam(required = true)int id, @RequestParam(required = true)int goid, @RequestParam(required = true)int count) throws Exception {
+	public Result<String> addCart(@RequestBody ClientModel cm) throws Exception {
+		int count = cm.getCacount();
+		int id = cm.getId();
+		int goid = cm.getGoods().get(0).getGoodsId();
 		cs.addCartByIdAndClient(id, goid, count);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -82,7 +85,10 @@ public class ClientController {
 	}
 	
 	@PostMapping(value = "/cart/modify")
-	public Result<String> modifyCart(@RequestParam(required = true)int id, @RequestParam(required = true)int goid, @RequestParam(required = true)int count) throws Exception {
+	public Result<String> modifyCart(@RequestBody ClientModel cm) throws Exception {
+		int count = cm.getCacount();
+		int id = cm.getId();
+		int goid = cm.getGoods().get(0).getGoodsId();
 		if(count>0) {
 			cs.modifyCartByIdAndClient(id, goid, count);
 		}
@@ -96,7 +102,10 @@ public class ClientController {
 	}
 	
 	@PostMapping(value="/cart/delete")
-	public Result<String> deleteCart(@RequestParam(required = true)int id, @RequestParam(required = true)int goid) throws Exception{
+	public Result<String> deleteCart(@RequestBody ClientModel cm) throws Exception{
+		int count = cm.getCacount();
+		int id = cm.getId();
+		int goid = cm.getGoods().get(0).getGoodsId();
 		cs.deleteCartByIdAndClient(id, goid);
 		Result<String> result=new Result<String>();
 		result.setStatus("ok");
