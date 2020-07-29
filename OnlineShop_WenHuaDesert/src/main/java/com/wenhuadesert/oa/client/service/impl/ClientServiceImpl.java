@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wenhuadesert.oa.client.mapper.IClientMapper;
 import com.wenhuadesert.oa.client.model.ClientModel;
 import com.wenhuadesert.oa.client.service.IClientService;
+import com.wenhuadesert.oa.goods.model.GoodsModel;
 
 @Service("clientServiceSM")
 @Transactional //环绕事务Advice的切入点
@@ -57,6 +58,11 @@ public class ClientServiceImpl implements IClientService {
 		return clientMapper.selectClientById(id);
 	}
 
+	@Override
+	public List<ClientModel> getGoodsByClientWithPage(int id, int rows, int page) throws Exception {
+		return clientMapper.selectGoodsByClientFromCartWithPage(id, rows * (page - 1), rows);
+	}
+	
 	@Override
 	public int getCountByAll() throws Exception {
 		return clientMapper.selectCountByAll();
@@ -163,5 +169,27 @@ public class ClientServiceImpl implements IClientService {
 		}
 		return pageCount;
 	}
+
+	@Override
+	public void deleteCartByIdAndClient(int id, int goid) throws Exception {
+		clientMapper.deleteCartByIdAndClient(id, goid);
+	}
+
+	@Override
+	public void addCartByIdAndClient(int id, int goid, int cacount) throws Exception {
+		clientMapper.insertCartByIdAndClient(id, goid, cacount);
+	}
+
+	@Override
+	public void modifyCartByIdAndClient(int id, int goid, int cacount) throws Exception {
+		clientMapper.updateCartByIdAndClient(id, goid, cacount);
+	}
+
+	@Override
+	public List<ClientModel> getCartListByIdWithGoodsWithPage(int id, int rows, int page) throws Exception {
+		return clientMapper.selectCartListByIdWithGoodsWithPage(id, rows * (page - 1), rows);
+	}
+	
+	
 
 }

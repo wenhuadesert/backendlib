@@ -11,11 +11,12 @@
     <result property="cliusername" column="CLIUSERNAME"/>
     <result property="clipassword" column="CLIPASSWORD"/>
     <result property="cliaddress" column="CLIADDRESS"/>
+  	<result property="cacount" column="CACOUNT"/>
   </resultMap>
   
   <resultMap id="ClientWithGoodsMap" type="Client" extends="ClientMap">
     <collection property="goods" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
-      <result property="cacount" column="CACOUNT"/>
+
     </collection>
   </resultMap>
   
@@ -34,6 +35,9 @@
   </select>
   <select id="selectListByAllWithGoods" resultMap="ClientWithGoodsMap">
   select cli.*,ca.CACOUNT, go.* from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
+  </select>
+  <select id="selectCartListByIdWithGoodsWithPage" resultMap="ClientWithGoodsMap">
+  select cli.*,go.*, CACOUNT from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID where ca.CLIID=#{cliid} limit #{start}, #{rows}
   </select>
   <select id="selectListByAllByCondition" resultMap="ClientMap">
   select * from oa_client
@@ -174,7 +178,17 @@
   </where>
   </select>
   
-  <select id="selectGoodsByClientFromCart" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
+  <select id="selectGoodsByClientFromCartWithPage" resultMap="com.wenhuadesert.oa.goods.mapper.IGoodsMapper.GoodsResultMap">
   select * from oa_goods where GOID in(select GOID from oa_cart where CLIID = #{cliid})
-  </select>
+  limit #{start}, #{rows}
+  </select>  
+  <delete id="deleteCartByIdAndClient">
+  delete from oa_cart where GOID = #{goid} and CLIID = #{cliid}
+  </delete>
+  <insert id="insertCartByIdAndClient">
+    insert into oa_cart (CLIID, GOID ,CACOUNT) values (#{cliid},#{goid}, #{cacount})
+  </insert>  
+  <update id="updateCartByIdAndClient">
+    update oa_cart set CACOUNT=#{cacount} where CLIID=#{cliid} and GOID=#{goid}
+  </update>
  </mapper>
