@@ -40,6 +40,10 @@
  	<update id="update">
  	update  oa_goods set CATID=#{category.categoryId},GOTAG=#{goodsTag},GOPRICE=#{price},STHID=#{storehouse.storehouseId},GOSTOCK=#{goodsStock},BRAND=#{brand} where GOID=#{goodsId}
  	</update>
+ 	
+ 	<update id="updatePhoto">
+ 	update  oa_goods set PHOTO=#{bytes},PHOTOCONTENTTYPE=#{contentType},PHOTOFILENAME=#{fileName} where GOID=#{no}
+ 	</update>
   
 	<delete id="delete">
  	delete from oa_goods where GOID=#{goodsId} 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wenhuadesert.oa.goods.mapper.IGoodsMapper;
 import com.wenhuadesert.oa.goods.model.GoodsModel;
@@ -99,6 +100,11 @@ public class GoodsServiceImpl implements IGoodsService {
 		}
 
 		return pageCount;
+	}
+
+	@Override
+	public void modifyPhoto(MultipartFile goodsPhoto, int no) throws Exception {
+		goodsMapper.updatePhoto(goodsPhoto.getBytes(), goodsPhoto.getOriginalFilename(),goodsPhoto.getContentType(),no);
 	}
 
 }

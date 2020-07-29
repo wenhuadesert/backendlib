@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wenhuadesert.oa.goods.model.GoodsModel;
 
@@ -43,4 +44,6 @@ public interface IGoodsMapper {
 			@Param("storehouseLocation") String storehouseLocation, @Param("goodsStock") int goodsStock,
 			@Param("brand") String brand) throws Exception;
 
+	public void updatePhoto(@Param("bytes") byte[] bytes, @Param("fileName") String fileName,
+			@Param("contentType") String contentType, @Param("no") int no) throws Exception;
 }
