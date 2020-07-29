@@ -11,11 +11,12 @@ import com.wenhuadesert.oa.express.model.ExpressCompanyModel;
 import com.wenhuadesert.oa.express.service.IExpressCompanyService;
 
 @Service("expressCompanyServiceSM")
-@Transactional //环绕事务Advice的切入点
+@Transactional // 环绕事务Advice的切入点
 public class ExpressCompanyServiceImpl implements IExpressCompanyService {
 
 	@Autowired
-	IExpressCompanyMapper expressCompanyMapper=null;
+	IExpressCompanyMapper expressCompanyMapper = null;
+
 	@Override
 	public void add(ExpressCompanyModel em) throws Exception {
 		expressCompanyMapper.insert(em);
@@ -37,7 +38,7 @@ public class ExpressCompanyServiceImpl implements IExpressCompanyService {
 	}
 
 	@Override
-	public List<ExpressCompanyModel> getListByAllWithPage(int page, int rows) throws Exception {
+	public List<ExpressCompanyModel> getListByAllWithPage(int rows, int page) throws Exception {
 		return expressCompanyMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 
@@ -50,18 +51,19 @@ public class ExpressCompanyServiceImpl implements IExpressCompanyService {
 	public int getCountByAll() throws Exception {
 		return expressCompanyMapper.selectCountByAll();
 	}
+
 	@Override
-	public int getPageCountByAll(int rows) throws Exception{
-		
-			int count = this.getCountByAll();
-			int pageCount = 0;
-			if (count % rows == 0) {
-				pageCount = count / rows;
-			} else {
-				pageCount = count / rows + 1;
-			}
-			return pageCount;
-		
+	public int getPageCountByAll(int rows) throws Exception {
+
+		int count = this.getCountByAll();
+		int pageCount = 0;
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
+
 	}
 
 }
