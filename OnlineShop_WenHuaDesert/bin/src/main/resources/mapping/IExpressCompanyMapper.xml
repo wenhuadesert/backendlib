@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhuadesert.oa.express.mapper.IExpressCompanyMapper">
+  
+  <resultMap id="ExpressCompanyMap" type="ExpressCompany">
+    <id property="excid" column="EXCID"/>
+    <result property="excname" column="EXCNAME"/>
+    <result property="excphone" column="EXCPHONE"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="ExpressCompany" keyProperty="excid"   keyColumn="EXCID"  useGeneratedKeys="true">
+  insert into oa_expresscompany (EXCID, EXCNAME, EXCPHONE) VALUES (#{excid},#{excname},#{excphone})
+  </insert>
+  <update id="update">
+  update oa_expresscompany set EXCNAME = #{excname},EXCPHONE=#{excphone} where EXCID = #{excid}
+  </update>
+  <delete id="delete">
+  delete from oa_expresscompany where EXCID = #{excid}
+  </delete>
+  <select id="selectListByAll" resultMap="ExpressCompanyMap">
+  select * from oa_expresscompany
+  </select>
+  <select id="selectListByAllByCondition" resultMap="ExpressCompanyMap">
+  select * from oa_expresscompany
+  <where>
+    <if test="excname!=null and excname!=''">
+    and EXCNAME = #{excname}
+    </if>
+    <if test="excphone!=0">
+    and EXCPHONE=#{excphone}
+    </if>
+  </where>
+  </select>
+  <select id="selectListByAllWithPage" resultMap="ExpressCompanyMap">
+  select * from oa_expresscompany limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllByConditionWithPage" resultMap="ExpressCompanyMap">
+  select * from oa_expresscompany
+  <where>
+    <if test="excname!=null and excname!=''">
+    and EXCNAME = #{excname}
+    </if>
+    <if test="excphone!=0">
+    and EXCPHONE=#{excphone}
+    </if>
+  </where>
+  limit #{start}, #{rows}
+  </select>
+  <select id="selectCompanyById" resultMap="ExpressCompanyMap">
+  select * from oa_expresscompany where EXCID = #{excid}
+  </select>
+  <select id="selectCountByAll" resultType="_int">
+  select count(*) from oa_expresscompany
+  </select>
+ </mapper>

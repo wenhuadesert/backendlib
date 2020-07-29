@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wenhuadesert.oa.client.model.ClientModel;
 import com.wenhuadesert.oa.client.service.IClientService;
+import com.wenhuadesert.oa.goods.model.GoodsModel;
 import com.wenhuadesert.oa.restresult.Result;
 
 @RestController
@@ -26,7 +27,7 @@ public class ClientController {
 		cs.add(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
-		result.setMessage("增加商品类别成功");
+		result.setMessage("增加客户成功");
 		return result;
 	}
 	
@@ -35,7 +36,7 @@ public class ClientController {
 		cs.modify(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
-		result.setMessage("修改商品类别成功");
+		result.setMessage("修改客户成功");
 		return result;
 	}
 	
@@ -44,7 +45,7 @@ public class ClientController {
 		cs.delete(em);
 		Result<String> result=new Result<String>();
 		result.setStatus("ok");
-		result.setMessage("删除商品类别成功");
+		result.setMessage("删除客户成功");
 		return result;
 	}
 	
@@ -57,7 +58,7 @@ public class ClientController {
 		result.setRows(rows);
 		result.setList(cs.getListByAllWithPage(rows, page));
 		result.setStatus("ok");
-		result.setMessage("取得商品列表分页成功");
+		result.setMessage("取得客户商品列表分页成功");
 		return result;
 	}
 	
@@ -67,7 +68,49 @@ public class ClientController {
 		result.setResult(cs.getClientById(id));
 		
 		result.setStatus("ok");
-		result.setMessage("取得商品成功");
+		result.setMessage("取得客户成功");
+		return result;
+	}
+
+	@PostMapping(value = "/cart/add")
+	public Result<String> addCart(@RequestParam(required = true)int id, @RequestParam(required = true)int goid, @RequestParam(required = true)int count) throws Exception {
+		cs.addCartByIdAndClient(id, goid, count);
+		Result<String> result = new Result<String>();
+		result.setStatus("ok");
+		result.setMessage("增加购物车内容成功");
+		return result;
+	}
+	
+	@PostMapping(value = "/cart/modify")
+	public Result<String> modifyCart(@RequestParam(required = true)int id, @RequestParam(required = true)int goid, @RequestParam(required = true)int count) throws Exception {
+		if(count>0) {
+			cs.modifyCartByIdAndClient(id, goid, count);
+		}
+		else {
+			cs.deleteCartByIdAndClient(id, goid);;
+		}
+		Result<String> result = new Result<String>();
+		result.setStatus("ok");
+		result.setMessage("修改购物车内容成功");
+		return result;
+	}
+	
+	@PostMapping(value="/cart/delete")
+	public Result<String> deleteCart(@RequestParam(required = true)int id, @RequestParam(required = true)int goid) throws Exception{
+		cs.deleteCartByIdAndClient(id, goid);
+		Result<String> result=new Result<String>();
+		result.setStatus("ok");
+		result.setMessage("删除购物车内容成功");
+		return result;
+	}
+	@GetMapping(value="/cart/list/all/page")
+	public Result<ClientModel> getCartById(@RequestParam(required = true)int id, @RequestParam(required = false,defaultValue = "10")int rows,@RequestParam(required = false,defaultValue = "1")int page) throws Exception{
+		Result<ClientModel> result=new Result<ClientModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		result.setList(cs.getCartListByIdWithGoodsWithPage(id, rows, page));
+		result.setStatus("ok");
+		result.setMessage("取得购物车列表分页成功");
 		return result;
 	}
 }

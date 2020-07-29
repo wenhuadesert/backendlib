@@ -15,6 +15,7 @@ public interface IClientMapper {
 	public void update(ClientModel cm) throws Exception;
 	public List<ClientModel> selectListByAll() throws Exception;
 	public List<ClientModel> selectListByAllWithGoods() throws Exception;
+	public List<ClientModel> selectCartListByIdWithGoodsWithPage(@Param("cliid")int id, @Param("start")int start, @Param("rows") int rows) throws Exception;
 	public List<ClientModel> selectListByAllByCondition(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress) throws Exception;
 	public List<ClientModel> selectListByAllByConditionWithGoods(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress) throws Exception;
 	public List<ClientModel> selectListByAllWithPage(@Param("start")int start, @Param("rows") int rows) throws Exception;
@@ -27,5 +28,8 @@ public interface IClientMapper {
 	public int selectCountByAllByCondition(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress) throws Exception;
 	public int selectCountByAllByConditionWithGoods(@Param("cliname")String cliname, @Param("clisex")String clisex,@Param("cliusername")String cliusername, @Param("clipassword")String clipassword, @Param("cliaddress")String cliaddress) throws Exception;
 	
-	public List<GoodsModel> selectGoodsByClientFromCart(int id) throws Exception;
+	public List<ClientModel> selectGoodsByClientFromCartWithPage(@Param("cliid")int id, @Param("start")int start, @Param("rows") int rows) throws Exception;
+	public void deleteCartByIdAndClient(@Param("cliid")int id, @Param("goid")int goid)throws Exception;
+	public void insertCartByIdAndClient(@Param("cliid")int id, @Param("goid")int goid, @Param("cacount")int cacount)throws Exception;
+	public void updateCartByIdAndClient(@Param("cliid")int id, @Param("goid")int goid, @Param("cacount")int cacount)throws Exception;
 }

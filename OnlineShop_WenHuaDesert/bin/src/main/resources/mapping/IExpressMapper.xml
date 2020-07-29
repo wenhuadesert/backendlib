@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhuadesert.oa.express.mapper.IExpressMapper">
+  
+  <resultMap id="ExpressMap" type="Express">
+    <id property="expid" column="EXPID"/>
+    <result property="isArrived" column="EXPARRIVED"/>
+  </resultMap>
+  <resultMap id="ExpressWithCompanyMap" type="Express" extends="ExpressMap">
+    <association property="expressCompany" resultMap="com.wenhuadesert.oa.express.mapper.IExpressCompanyMapper.ExpressCompanyMap"/>
+  </resultMap>
+  <resultMap id="ExpressWithOrderMap" type="Express" extends="ExpressMap" >
+    <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper.OrderMap"/>
+  </resultMap>
+  <resultMap id="ExpressWithCompanyWithOrderMap" type="Express" extends="ExpressWithCompanyMap" >
+    <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper.OrderMap"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="Express" keyProperty="expressId"   keyColumn="EXPID"  useGeneratedKeys="true">
+  insert into oa_express (EXPID, EXPARRIVED, EXCID, ORDID) VALUES (#{expid},#{isArrived}, #{expressCompany.id}, #{order.id})
+  </insert>
+  <update id="update">
+  update oa_express set EXPARRIVED = #{isArrived}, EXCID=#{expressCompany.id}, ORDID=#{order.id} where EXPID = #{expid}
+  </update>
+  <delete id="delete">
+  delete from oa_express where EXPID = #{expid}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="ExpressMap">
+  select * from oa_express
+  </select>
+  <select id="selectListByAllByCondition" resultMap="ExpressMap">
+  select * from oa_express where
+    <if test="isArrived!=null">
+    EXPARRIVED = #{isArrived}
+    </if>
+  </select>
+  <select id="selectListByAllWithCompany" resultMap="ExpressWithCompanyMap">
+  select exp.*, exc.* from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  </select>
+  <select id="selectListByAllWithOrder" resultMap="ExpressWithOrderMap">
+  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID 
+  </select>
+  <select id="selectListByAllWithCompanyWithOrder" resultMap="ExpressWithCompanyWithOrderMap">
+  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
+  </select>
+  <select id="selectListByAllByConditionWithCompany" resultMap="ExpressWithCompanyMap">
+  select exp.*, exc.* from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  <where>
+    <if test="isArrived!=null">
+    exp.EXPARRIVED = #{isArrived}
+    </if>
+    <if test="expressCompany.name!=null">
+    exc.EXCNAME = #{expressCompany.name}
+    </if>
+  </where>
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="ExpressMap">
+  select * from oa_express limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllByConditionWithPage" resultMap="ExpressMap">
+  select * from oa_express where
+    <if test="isArrived!=null">
+    EXPARRIVED = #{isArrived}
+    </if>
+  limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllWithCompanyWithPage" resultMap="ExpressWithCompanyMap">
+  select exp.*, exc.* from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllWithOrderWithPage" resultMap="ExpressWithOrderMap">
+  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID 
+  limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllWithCompanyWithOrderWithPage" resultMap="ExpressWithCompanyWithOrderMap">
+  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
+  limit #{start}, #{rows}
+  </select>
+  <select id="selectListByAllByConditionWithCompanyWithPage" resultMap="ExpressWithCompanyMap">
+  select exp.*, exc.* from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  <where>
+    <if test="isArrived!=null">
+    exp.EXPARRIVED = #{isArrived}
+    </if>
+    <if test="expressCompany.name!=null">
+    exc.EXCNAME = #{expressCompany.name}
+    </if>
+  </where>
+  limit #{start}, #{rows}
+  </select>
+  
+  <select id="selectExpressById" resultMap="ExpressMap">
+  select * from oa_express where EXCID = #{expid}
+  </select>
+  <select id="selectCountByAll" resultType="_int">
+  select count(*) from oa_express
+  </select>
+  <select id="selectCountByAllByCondition" resultType="_int">
+  select count(*) from oa_express where
+    <if test="isArrived!=null">
+    EXPARRIVED = #{isArrived}
+    </if>
+  </select>
+  <select id="selectCountByAllWithCompany" resultType="_int">
+  select count(*) from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  </select>
+  <select id="selectCountByAllWithOrder" resultType="_int">
+  select count(*) from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID 
+  </select>
+  <select id="selectCountByAllWithCompanyWithOrder" resultType="_int">
+  select count(*) from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
+  </select>
+  <select id="selectCountByAllByConditionWithCompany" resultType="_int">
+  select count(*) from oa_express exp inner join oa_expresscompany exc on exp.EXCID=exc.EXCID 
+  <where>
+    <if test="isArrived!=null">
+    exp.EXPARRIVED = #{isArrived}
+    </if>
+    <if test="expressCompany.name!=null">
+    exc.EXCNAME = #{expressCompany.name}
+    </if>
+  </where>
+  </select>
+  
+ </mapper>

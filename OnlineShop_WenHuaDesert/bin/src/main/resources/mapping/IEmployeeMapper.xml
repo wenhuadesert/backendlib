@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhuadesert.oa.employee.mapper.IEmployeeMapper">
+  
+  <resultMap id="EmployeeMap" type="Employee">
+    <id property="empid" column="EMPID"/>
+    <result property="empname" column="EMPNAME"/>
+    <result property="empsex" column="EMPSEX"/>
+    <result property="empusername" column="EMPUSERNAME"/>
+    <result property="emppassword" column="EMPPASSWORD"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="Employee" keyProperty="empid"   keyColumn="EMPID"  useGeneratedKeys="true">
+  insert into oa_employee (EMPID, EMPNAME, EMPSEX, EMPUSERNAME, EMPPASSWORD) VALUES (#{empid},#{empname},#{empsex},#{empusername},#{emppassword})
+  </insert>
+  <update id="update">
+  update oa_employee set EMPNAME = #{empname},EMPSEX=#{empsex}, EMPUSERNAME = #{empusername}, EMPPASSWORD = #{emppassword} where EMPID = #{empid}
+  </update>
+  <delete id="delete">
+  delete from oa_employee where EMPID = #{empid}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="EmployeeMap">
+  select * from oa_employee
+  </select>
+  <select id="selectListByAllWithPage" resultMap="EmployeeMap">
+  select * from oa_employee limit #{start}, #{rows}
+  </select>
+  <select id="selectEmployeeById" resultMap="EmployeeMap">
+  select * from oa_employee where EMPID = #{empid}
+  </select>
+  <select id="selectCountByAll" resultType="_int">
+  select count(*) from oa_employee
+  </select>
+</mapper>

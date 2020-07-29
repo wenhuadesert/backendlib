@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhuadesert.oa.goods.mapper.IGoodsMapper">
+
+	<!-- 基础映射，不包含关联属性 -->
+	<resultMap id="GoodsResultMap" type="Goods" >
+		<id property="goodsId" column="GOID"/>
+		<result property="goodsTag" column="GOTAG"/>
+		<result property="price" column="GOPRICE"/>
+		<result property="goodsStock" column="GOSTOCK"/>
+		<result property="brand" column="BRAND"/>		
+	</resultMap>
+ 
+ 
+ 	<!-- 关联商品类别的结果映射 -->
+ 	<resultMap id="GoodsWithCategoryResultMap" type="Goods" extends="GoodsResultMap">
+		<association property="category" resultMap="com.wenhuadesert.oa.goods.mapper.ICategoryMapper.CategoryResultMap" />
+	</resultMap>
+	
+	<!-- 关联仓库的结果映射 -->
+ 	<resultMap id="GoodsWithStorehouseResultMap" type="Goods" extends="GoodsResultMap">
+		<!--
+		<association property="storehouse" resultMap="com.wenhuadesert.oa.storehouse.mapper.IStorehouseMapper.StorehouseResultMap" />
+		-->
+	</resultMap>
+	
+	<!-- 关联类别和仓库的结果映射 -->
+ 	<resultMap id="GoodsWithCategoryAndStorehouseResultMap" type="Goods" extends="GoodsWithCategoryResultMap">
+		<!--
+		<association property="storehouse" resultMap="com.wenhuadesert.oa.storehouse.mapper.IStorehouseMapper.StorehouseResultMap" />
+		-->
+	</resultMap>
+ 	
+	<insert id="insert" parameterType="Goods" keyProperty="goodsId"   keyColumn="GOID"  useGeneratedKeys="true">
+	insert into oa_goods (CATID,GOTAG,GOPRICE,STHID,GOSTOCK,BRAND) values (#{category.categoryId},#{goodsTag},#{price},#{storehouse.id},#{goodsStock},#{brand})
+ 	</insert>
+  
+ 	<update id="update">
+ 	update  oa_goods set CATID=#{category.categoryId},GOTAG=#{goodsTag},GOPRICE=#{price},STHID=#{storehouse.id},GOSTOCK=#{goodsStock},BRAND=#{brand} where GOID=#{goodsId}
+ 	</update>
+  
+	<delete id="delete">
+ 	delete from oa_goods where GOID=#{goodsId} 
+ 	</delete>
+  
+ 	<select id="selectListByAll"  resultMap="GoodsResultMap">
+ 	select *  from oa_goods
+ 	</select>
+ 	
+ 	<select id="selectByAllWithPage" resultMap="GoodsResultMap">
+ 	select *  from oa_goods limit #{start},#{rows}
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="_int">
+ 	select count(*)  from oa_goods
+ 	</select>
+
+ 	<select id="selectById"  resultMap="GoodsResultMap">
+ 	select * from oa_goods where GOID=#{goodsId} 
+ 	</select>
+ 	
+ 	<select id="selectByIdWithCategory"  resultMap="GoodsWithCategoryResultMap">
+ 	select a.*,b.* from oa_goods a inner join oa_category b on a.catid=b.catid 
+ 	where GOID=#{goodsId} 
+ 	</select>
+ 	
+ 	<select id="selectByIdWithCategoryAndStorehouse"  resultMap="GoodsWithCategoryAndStorehouseResultMap">
+ 	select a.*,b.*,c.* from oa_goods a inner join oa_category b on a.catid=b.catid 
+ 	inner join oa_storehouse c on a.sthid=c.sthid 
+ 	where GOID=#{goodsId} 
+ 	</select>
+
+	<select id="selectListByAllWithCategoryAndStorehouse"  resultMap="GoodsWithCategoryAndStorehouseResultMap">
+ 	select a.*,b.*,c.* from oa_goods a inner join oa_category b on a.catid=b.catid 
+ 	inner join oa_storehouse c on a.sthid=c.sthid
+ 	</select>
+ 	
+ 	<select id="selectListByAllWithPageWithCategoryAndStorehouse"  resultMap="GoodsWithCategoryAndStorehouseResultMap">
+ 	select a.*,b.*,c.* from oa_goods a inner join oa_category b on a.catid=b.catid 
+ 	inner join oa_storehouse c on a.sthid=c.sthid
+ 	limit #{start},#{rows}
+ 	</select>
+ 	
+ 	
+ 	<select id="selectListByConditionWithPageWithCategoryAndStorehouse"  resultMap="GoodsWithCategoryAndStorehouseResultMap">
+ 	select a.*,b.*,c.* from oa_goods a inner join oa_category b on a.catid=b.catid 
+ 	inner join oa_storehouse c on a.sthid=c.sthid
+ 	
+ 	<where>
+ 	<if test="lowPrice!=0">
+ 	  and a.goprice &gt;=#{lowPrice}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and a.goprice &lt;=#{highPrice}
+ 	</if>
+ 	<if test="goodsStock!=0">
+ 	 and a.gostock &gt;= 0
+ 	</if>
+ 	<if test="storehouseLocation!=null and storehouseLocation!=''">
+ 	 and c.LOCATION like #{storehouseLocation}
+ 	</if>
+ 	<if test="brand!=null and brand!=''">
+ 	 and a.brand like #{brand}
+ 	</if>
+ 	</where>
+ 	
+ 	limit #{start},#{rows}
+ 	</select>
+ 	
+</mapper>
