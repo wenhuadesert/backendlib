@@ -43,12 +43,12 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public List<ClientModel> getListByAllWithPage(int page, int rows) throws Exception {
+	public List<ClientModel> getListByAllWithPage(int rows, int page) throws Exception {
 		return clientMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 
 	@Override
-	public List<ClientModel> getListByAllWithGoodsWithPage(int page, int rows) throws Exception {
+	public List<ClientModel> getListByAllWithGoodsWithPage(int rows, int page) throws Exception {
 		return clientMapper.selectListByAllWithGoodsWithPage(rows * (page - 1), rows);
 	}
 
