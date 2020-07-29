@@ -1,5 +1,7 @@
 package com.wenhuadesert.oa.goods.controller;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wenhuadesert.oa.restresult.Result;
 import com.wenhuadesert.oa.goods.model.GoodsModel;
@@ -23,10 +26,24 @@ public class GoodsController {
 	
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody GoodsModel goodsModel) throws Exception {
-		goodsService.add(goodsModel);
 		Result<String> result = new Result<String>();
+		result.setIntResult(goodsService.add(goodsModel));
 		result.setStatus("ok");
 		result.setMessage("增加商品成功");
+		return result;
+	}
+	
+	@PostMapping(value="/updatephoto")
+	public Result<String> updatePhoto(@RequestParam(required=false) MultipartFile goodsPhoto,@RequestParam(required=true) int no) throws Exception{
+		if(goodsPhoto!=null&&(!goodsPhoto.isEmpty())) {
+			goodsService.modifyPhoto(goodsPhoto,no);
+			File dist=new File("d:/webroot/photo/"+goodsPhoto.getOriginalFilename());
+			goodsPhoto.transferTo(dist);
+
+		}
+		Result<String> result=new Result<String>();
+		result.setStatus("ok");
+		result.setMessage("修改员工照片成功!");
 		return result;
 	}
 	

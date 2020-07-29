@@ -1,6 +1,9 @@
 package com.wenhuadesert.oa.goods.service;
 
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.wenhuadesert.oa.goods.model.GoodsModel;
 
 public interface IGoodsService {
@@ -37,5 +40,6 @@ public interface IGoodsService {
 
 	public int getPageCountByCondition(int rows, double lowPrice, double highPrice, String storehouseLocation, int goodsStock, String brand)
 			throws Exception;
+	public void modifyPhoto(MultipartFile goodsPhoto,int no) throws Exception;
 
 }
