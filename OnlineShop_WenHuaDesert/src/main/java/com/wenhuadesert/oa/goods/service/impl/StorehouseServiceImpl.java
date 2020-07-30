@@ -90,5 +90,32 @@ public class StorehouseServiceImpl implements IStorehouseService {
 		}
 		return storehouseMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
+	
+	@Override
+	public int getCountByCondition(String address) throws Exception {
+		if(address!=null&&address.trim().length()>0) {
+			return storehouseMapper.selectCountByCondition(address);
+		}
+		return storehouseMapper.selectCountByAll();
+	}
+	@Override
+	public int getPageCountByCondition(int rows, String address) throws Exception {
+		int count=0;
+		if(address!=null&&address.trim().length()>0) {
+			count=this.getCountByCondition(address);
+		}
+		else {
+		   count=this.getCountByAll();
+		}
+		int pageCount=0;
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	
+	}
 
 }

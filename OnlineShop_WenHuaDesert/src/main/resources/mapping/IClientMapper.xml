@@ -11,7 +11,6 @@
     <result property="cliusername" column="CLIUSERNAME"/>
     <result property="clipassword" column="CLIPASSWORD"/>
     <result property="cliaddress" column="CLIADDRESS"/>
-  	<result property="cacount" column="CACOUNT"/>
   </resultMap>
   
   <resultMap id="ClientWithGoodsMap" type="Client" extends="ClientMap">
@@ -42,40 +41,41 @@
   <select id="selectListByAllByCondition" resultMap="ClientMap">
   select * from oa_client
   <where >
-    <if test="name!=null and name!=''">
-    and CLINAME=#{cliname}
+    <if test="cliname!=null and cliname!=''">
+    and CLINAME like #{cliname}
     </if>
-    <if test="sex!=null and sex!=''">
-    and CLISEX=#{clisex}
+    <if test="clisex!=null and clisex!=''">
+    and CLISEX like #{clisex}
     </if>
-    <if test="username!=null and username!=''">
-    and CLIUSERNAME = #{cliusername}
+    <if test="cliusername!=null and cliusername!=''">
+    and CLIUSERNAME  like #{cliusername}
     </if>
-    <if test="password!=null and password!=''">
-    and CLIPASSWORD = #{clipassword}
+    <if test="clipassword!=null and clipassword!=''">
+    and CLIPASSWORD  like #{clipassword}
     </if>
-    <if test="address!=null and address!=''">
-    and CLIADDRESS=#{cliaddress}
+    <if test="cliaddress!=null and cliaddress!=''">
+    and CLIADDRESS like #{cliaddress}
     </if>
   </where>
   </select>
   <select id="selectListByAllByConditionWithGoods" resultMap="ClientWithGoodsMap">
   select cli.*,ca.CACOUNT, go.* from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
+  
   <where >
-    <if test="name!=null and name!=''">
-    and cli.CLINAME=#{cliname}
+    <if test="cliname!=null and cliname!=''">
+    and CLINAME like #{cliname}
     </if>
-    <if test="sex!=null and sex!=''">
-    and cli.CLISEX=#{clisex}
+    <if test="clisex!=null and clisex!=''">
+    and CLISEX like #{clisex}
     </if>
-    <if test="username!=null and username!=''">
-    and cli.CLIUSERNAME = #{cliusername}
+    <if test="cliusername!=null and cliusername!=''">
+    and CLIUSERNAME  like #{cliusername}
     </if>
-    <if test="password!=null and password!=''">
-    and cli.CLIPASSWORD = #{clipassword}
+    <if test="clipassword!=null and clipassword!=''">
+    and CLIPASSWORD  like #{clipassword}
     </if>
-    <if test="address!=null and address!=''">
-    and cli.CLIADDRESS=#{cliaddress}
+    <if test="cliaddress!=null and cliaddress!=''">
+    and CLIADDRESS like #{cliaddress}
     </if>
   </where>
   </select>
@@ -85,20 +85,20 @@
   <select id="selectListByAllByConditionWithPage" resultMap="ClientMap">
   select * from oa_client
   <where >
-    <if test="name!=null and name!=''">
-    and CLINAME=#{cliname}
+    <if test="cliname!=null and cliname!=''">
+    and CLINAME like #{cliname}
     </if>
-    <if test="sex!=null and sex!=''">
-    and CLISEX=#{clisex}
+    <if test="clisex!=null and clisex!=''">
+    and CLISEX like #{clisex}
     </if>
-    <if test="username!=null and username!=''">
-    and CLIUSERNAME = #{cliusername}
+    <if test="cliusername!=null and cliusername!=''">
+    and CLIUSERNAME  like #{cliusername}
     </if>
-    <if test="password!=null and password!=''">
-    and CLIPASSWORD = #{password}
+    <if test="clipassword!=null and clipassword!=''">
+    and CLIPASSWORD  like #{clipassword}
     </if>
-    <if test="address!=null and address!=''">
-    and CLIADDRESS=#{cliaddress}
+    <if test="cliaddress!=null and cliaddress!=''">
+    and CLIADDRESS like #{cliaddress}
     </if>
   </where>
   limit #{start}, #{rows}
@@ -108,21 +108,22 @@
   </select>
   <select id="selectListByAllByConditionWithGoodsWithPage" resultMap="ClientWithGoodsMap">
   select cli.*,ca.CACOUNT, go.* from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
+  
   <where >
-    <if test="name!=null and name!=''">
-    and cli.CLINAME=#{cliname}
+    <if test="cliname!=null and cliname!=''">
+    and CLINAME like #{cliname}
     </if>
-    <if test="sex!=null and sex!=''">
-    and cli.CLISEX=#{clisex}
+    <if test="clisex!=null and clisex!=''">
+    and CLISEX like #{clisex}
     </if>
-    <if test="username!=null and username!=''">
-    and cli.CLIUSERNAME = #{cliusername}
+    <if test="cliusername!=null and cliusername!=''">
+    and CLIUSERNAME  like #{cliusername}
     </if>
-    <if test="password!=null and password!=''">
-    and cli.CLIPASSWORD = #{clipassword}
+    <if test="clipassword!=null and clipassword!=''">
+    and CLIPASSWORD  like #{clipassword}
     </if>
-    <if test="address!=null and address!=''">
-    and cli.CLIADDRESS=#{cliaddress}
+    <if test="cliaddress!=null and cliaddress!=''">
+    and CLIADDRESS like #{cliaddress}
     </if>
   </where>
   limit #{start}, #{rows}
@@ -137,43 +138,44 @@
   <select id="selectCountByAllWithGoods" resultType="_int">
   select count(*) from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
   </select>
-  <select id="selectCountByAllByCondition" resultMap="ClientMap">
+  <select id="selectCountByAllByCondition" resultType="_int">
   select count(*) from oa_client
   <where >
-    <if test="name!=null and name!=''">
-    and CLINAME=#{cliname}
+    <if test="cliname!=null and cliname!=''">
+    and CLINAME like #{cliname}
     </if>
-    <if test="sex!=null and sex!=''">
-    and CLISEX=#{clisex}
+    <if test="clisex!=null and clisex!=''">
+    and CLISEX like #{clisex}
     </if>
-    <if test="username!=null and username!=''">
-    and CLIUSERNAME = #{cliusername}
+    <if test="cliusername!=null and cliusername!=''">
+    and CLIUSERNAME  like #{cliusername}
     </if>
-    <if test="password!=null and password!=''">
-    and CLIPASSWORD = #{clipassword}
+    <if test="clipassword!=null and clipassword!=''">
+    and CLIPASSWORD  like #{clipassword}
     </if>
-    <if test="address!=null and address!=''">
-    and CLIADDRESS=#{cliaddress}
+    <if test="cliaddress!=null and cliaddress!=''">
+    and CLIADDRESS like #{cliaddress}
     </if>
   </where>
   </select>
   <select id="selectCountByAllByConditionWithGoods" resultType="_int">
   select count(*) from oa_client cli left outer join oa_cart ca on cli.CLIID=ca.CLIID left outer join oa_goods go on ca.GOID=go.GOID
+  
   <where >
-    <if test="name!=null and name!=''">
-    and cli.CLINAME=#{cliname}
+    <if test="cliname!=null and cliname!=''">
+    and CLINAME like #{cliname}
     </if>
-    <if test="sex!=null and sex!=''">
-    and cli.CLISEX=#{clisex}
+    <if test="clisex!=null and clisex!=''">
+    and CLISEX like #{clisex}
     </if>
-    <if test="username!=null and username!=''">
-    and cli.CLIUSERNAME = #{cliusername}
+    <if test="cliusername!=null and cliusername!=''">
+    and CLIUSERNAME  like #{cliusername}
     </if>
-    <if test="password!=null and password!=''">
-    and cli.CLIPASSWORD = #{clipassword}
+    <if test="clipassword!=null and clipassword!=''">
+    and CLIPASSWORD  like #{clipassword}
     </if>
-    <if test="address!=null and address!=''">
-    and cli.CLIADDRESS=#{cliaddress}
+    <if test="cliaddress!=null and cliaddress!=''">
+    and CLIADDRESS like #{cliaddress}
     </if>
   </where>
   </select>
@@ -189,6 +191,6 @@
     insert into oa_cart (CLIID, GOID ,CACOUNT) values (#{cliid},#{goid}, #{cacount})
   </insert>  
   <update id="updateCartByIdAndClient">
-    update oa_cart set CACOUNT=#{cacount} where CLIID=#{cliid} and GOID=#{goid}
+    update oa_cart set CACOUNT like #{cacount} where CLIID like #{cliid} and GOID like #{goid}
   </update>
  </mapper>

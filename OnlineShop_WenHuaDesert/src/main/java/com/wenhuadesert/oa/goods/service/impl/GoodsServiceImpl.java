@@ -74,24 +74,22 @@ public class GoodsServiceImpl implements IGoodsService {
 	}
 
 	@Override
-	public List<GoodsModel> getListByConditionWithPageWithCategoryAndStorehouse(int rows, int page, double lowPrice,
-			double highPrice, String storehouseLocation, int goodsStock, String brand) throws Exception {
-
-		return goodsMapper.selectListByConditionWithPageWithCategoryAndStorehouse(rows * (page - 1), rows, lowPrice,
-				highPrice, storehouseLocation, goodsStock, brand);
+	public List<GoodsModel> getListByConditionWithPageWithCategoryAndStorehouse(int rows, int page, int categoryId,
+			double lowPrice, double highPrice, int goodsStock, String brand) throws Exception {
+		if(brand!=null&&brand.trim().length()>0) {
+			brand="%"+brand+"%";
+		}
+		return goodsMapper.selectListByConditionWithPageWithCategoryAndStorehouse(rows * (page - 1), rows, categoryId,
+				lowPrice, highPrice, goodsStock, brand);
 	}
 
 	@Override
-	public int getCountByCondition(double lowPrice, double highPrice, String storehouseLocation, int goodsStock,
+	public int getPageCountByCondition(int rows, int categoryId, double lowPrice, double highPrice, int goodsStock,
 			String brand) throws Exception {
-
-		return goodsMapper.selectCountByCondition(lowPrice, highPrice, storehouseLocation, goodsStock, brand);
-	}
-
-	@Override
-	public int getPageCountByCondition(int rows, double lowPrice, double highPrice, String storehouseLocation,
-			int goodsStock, String brand) throws Exception {
-		int count = this.getCountByCondition(lowPrice, highPrice, storehouseLocation, goodsStock, brand);
+		if(brand!=null&&brand.trim().length()>0) {
+			brand="%"+brand+"%";
+		}
+		int count = this.getCountByCondition(categoryId, lowPrice, highPrice, goodsStock, brand);
 		int pageCount = 0;
 		if (count % rows == 0) {
 			pageCount = count / rows;
@@ -104,7 +102,18 @@ public class GoodsServiceImpl implements IGoodsService {
 
 	@Override
 	public void modifyPhoto(MultipartFile goodsPhoto, int no) throws Exception {
-		goodsMapper.updatePhoto(goodsPhoto.getBytes(), goodsPhoto.getOriginalFilename(),goodsPhoto.getContentType(),no);
+		goodsMapper.updatePhoto(goodsPhoto.getBytes(), goodsPhoto.getOriginalFilename(), goodsPhoto.getContentType(),
+				no);
+	}
+
+	@Override
+	public int getCountByCondition(int categoryId, double lowPrice, double highPrice, int goodsStock, String brand)
+			throws Exception {
+		if(brand!=null&&brand.trim().length()>0) {
+			brand="%"+brand+"%";
+		}
+		return goodsMapper.selectCountByCondition(categoryId, lowPrice, highPrice, goodsStock, brand);
+		 
 	}
 
 }

@@ -31,5 +31,6 @@ public interface IStorehouseMapper {
 	public List<StorehouseModel> selectListByConditionWithPage(
 			@Param("start") int start,@Param("rows") int rows,@Param("address") String address) throws Exception;
 	
+	public int selectCountByCondition(@Param("address") String address) throws Exception;
 	
 }

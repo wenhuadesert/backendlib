@@ -14,6 +14,7 @@
 		<result property="photo" column="PHOTO"/>
 		<result property="photoContentType" column="PHOTOCONTENTTYPE"/>
 		<result property="photoFileName" column="PHOTOFILENAME"/>
+		<result property="cartCount" column="CACOUNT"/>
 	</resultMap>
  
  
@@ -103,10 +104,10 @@
  	 and a.goprice &lt;=#{highPrice}
  	</if>
  	<if test="goodsStock!=0">
- 	 and a.gostock &gt;= 0
+ 	 and a.gostock &gt; 0
  	</if>
- 	<if test="storehouseLocation!=null and storehouseLocation!=''">
- 	 and c.LOCATION like #{storehouseLocation}
+ 	<if test="categoryId!=0">
+ 	 and b.CATID = #{categoryId}
  	</if>
  	<if test="brand!=null and brand!=''">
  	 and a.brand like #{brand}
@@ -116,4 +117,25 @@
  	limit #{start},#{rows}
  	</select>
  	
+ 	<select id="selectCountByCondition"  resultType="_int">
+ 	select count(*) from oa_goods a inner join oa_category b on a.catid=b.catid 
+ 	inner join oa_storehouse c on a.sthid=c.sthid
+ 	<where>
+ 	<if test="lowPrice!=0">
+ 	  and a.goprice &gt;=#{lowPrice}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and a.goprice &lt;=#{highPrice}
+ 	</if>
+ 	<if test="goodsStock!=0">
+ 	 and a.gostock &gt;= 0
+ 	</if>
+ 	<if test="categoryId!=0">
+ 	 and b.CATID = #{categoryId}
+ 	</if>
+ 	<if test="brand!=null and brand!=''">
+ 	 and a.brand like #{brand}
+ 	</if>
+ 	</where>
+ 	</select>
 </mapper>

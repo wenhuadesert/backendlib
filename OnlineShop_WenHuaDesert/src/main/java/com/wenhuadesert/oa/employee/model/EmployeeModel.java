@@ -11,6 +11,10 @@ public class EmployeeModel implements Serializable {
 	private String empsex = null;
 	private String empusername = null;
 	private String emppassword = null;
+	private byte[] empphoto = null; // 商品照片
+	private String empphotoFileName = null; // 照片文件名
+	private String empphotoContentType = null; // 照片类型
+	
 	public int getId() {
 		return empid;
 	}
@@ -40,6 +44,24 @@ public class EmployeeModel implements Serializable {
 	}
 	public void setPassword(String password) {
 		this.emppassword = password;
+	}
+	public byte[] getPhoto() {
+		return empphoto;
+	}
+	public void setPhoto(byte[] photo) {
+		this.empphoto = photo;
+	}
+	public String getPhotoFileName() {
+		return empphotoFileName;
+	}
+	public void setPhotoFileName(String photoFileName) {
+		this.empphotoFileName = photoFileName;
+	}
+	public String getPhotoContentType() {
+		return empphotoContentType;
+	}
+	public void setPhotoContentType(String photoContentType) {
+		this.empphotoContentType = photoContentType;
 	}
 	
 }

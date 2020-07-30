@@ -10,10 +10,18 @@
     <result property="empsex" column="EMPSEX"/>
     <result property="empusername" column="EMPUSERNAME"/>
     <result property="emppassword" column="EMPPASSWORD"/>
+	<result property="empphoto" column="EMPPHOTO"/>
+	<result property="empphotoContentType" column="EMPPHOTOCONTENTTYPE"/>
+	<result property="empphotoFileName" column="EMPPHOTOFILENAME"/>
   </resultMap>
   
   <insert id="insert" parameterType="Employee" keyProperty="empid"   keyColumn="EMPID"  useGeneratedKeys="true">
-  insert into oa_employee (EMPID, EMPNAME, EMPSEX, EMPUSERNAME, EMPPASSWORD) VALUES (#{empid},#{empname},#{empsex},#{empusername},#{emppassword})
+  insert into oa_employee (EMPID, EMPNAME, EMPSEX, EMPUSERNAME, EMPPASSWORD) 
+  VALUES (#{empid},#{empname},#{empsex},#{empusername},#{emppassword})
+  </insert>
+  <insert id="insertWithPhoto" parameterType="Employee" keyProperty="empid"   keyColumn="EMPID"  useGeneratedKeys="true">
+  insert into oa_employee (EMPID, EMPNAME, EMPSEX, EMPUSERNAME, EMPPASSWORD, EMPPHOTO, EMPPHOTOCONTENTTYPE, EMPPHOTOFILENAME) 
+  VALUES (#{empid},#{empname},#{empsex},#{empusername},#{emppassword},#{empphoto},#{empphotoContentType},#{empphotoFileName})
   </insert>
   <update id="update">
   update oa_employee set EMPNAME = #{empname},EMPSEX=#{empsex}, EMPUSERNAME = #{empusername}, EMPPASSWORD = #{emppassword} where EMPID = #{empid}

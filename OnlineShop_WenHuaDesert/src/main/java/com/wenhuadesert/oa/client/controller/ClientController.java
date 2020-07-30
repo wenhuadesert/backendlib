@@ -58,7 +58,40 @@ public class ClientController {
 		result.setRows(rows);
 		result.setList(cs.getListByAllWithPage(rows, page));
 		result.setStatus("ok");
-		result.setMessage("取得客户商品列表分页成功");
+		result.setMessage("取得客户列表分页成功");
+		return result;
+	}
+	
+	@RequestMapping(value="/list/condition/page")
+	public Result<ClientModel> getListByAllByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="") String sex, 
+			@RequestParam(required=false,defaultValue="") String name,
+			@RequestParam(required=false,defaultValue="") String address,
+			@RequestParam(required=false,defaultValue="") String username, 
+			@RequestParam(required=false,defaultValue="") String password) throws Exception{
+		Result<ClientModel> result=new Result<ClientModel>();
+		if(name!=null&&name.trim().length()>0) {
+			name="%"+name+"%";
+		System.out.println(name);
+		}
+		if(username!=null&&username.trim().length()>0) {
+			username="%"+username+"%";
+		System.out.println(username);
+		}
+		if(address!=null&&address.trim().length()>0) {
+			address="%"+address+"%";
+			System.out.println(address);
+		}
+		result.setPage(page);
+		result.setRows(rows);
+		result.setCount(cs.getCountByAllByCondition(name, sex, username, password, address));
+		result.setPageCount(cs.getPageCountByAllByCondition(name, sex, username, password, address, rows));
+		result.setList(cs.getListByAllByConditionWithPage(name, sex, username, password, address, rows, page));
+
+		result.setStatus("ok");
+		result.setMessage("取得客户列表分页成功");
 		return result;
 	}
 	
@@ -74,7 +107,7 @@ public class ClientController {
 
 	@PostMapping(value = "/cart/add")
 	public Result<String> addCart(@RequestBody ClientModel cm) throws Exception {
-		int count = cm.getCacount();
+		int count = cm.getGoods().get(0).getCartCount();
 		int id = cm.getId();
 		int goid = cm.getGoods().get(0).getGoodsId();
 		cs.addCartByIdAndClient(id, goid, count);
@@ -86,7 +119,7 @@ public class ClientController {
 	
 	@PostMapping(value = "/cart/modify")
 	public Result<String> modifyCart(@RequestBody ClientModel cm) throws Exception {
-		int count = cm.getCacount();
+		int count = cm.getGoods().get(0).getCartCount();
 		int id = cm.getId();
 		int goid = cm.getGoods().get(0).getGoodsId();
 		if(count>0) {
@@ -103,7 +136,6 @@ public class ClientController {
 	
 	@PostMapping(value="/cart/delete")
 	public Result<String> deleteCart(@RequestBody ClientModel cm) throws Exception{
-		int count = cm.getCacount();
 		int id = cm.getId();
 		int goid = cm.getGoods().get(0).getGoodsId();
 		cs.deleteCartByIdAndClient(id, goid);

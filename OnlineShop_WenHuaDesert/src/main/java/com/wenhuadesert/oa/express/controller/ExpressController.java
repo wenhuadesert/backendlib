@@ -26,7 +26,7 @@ public class ExpressController {
 		es.add(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
-		result.setMessage("增加商品类别成功");
+		result.setMessage("增加快递单成功");
 		return result;
 	}
 	
@@ -35,7 +35,7 @@ public class ExpressController {
 		es.modify(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
-		result.setMessage("修改商品类别成功");
+		result.setMessage("修改快递单成功");
 		return result;
 	}
 	
@@ -44,7 +44,7 @@ public class ExpressController {
 		es.delete(em);
 		Result<String> result=new Result<String>();
 		result.setStatus("ok");
-		result.setMessage("删除商品类别成功");
+		result.setMessage("删除快递单成功");
 		return result;
 	}
 	
@@ -56,9 +56,8 @@ public class ExpressController {
 		result.setPage(page);
 		result.setRows(rows);
 		result.setList(es.getListByAllWithPage(rows, page));
-		
 		result.setStatus("ok");
-		result.setMessage("取得商品列表分页成功");
+		result.setMessage("取得快递单分页成功");
 		return result;
 	}
 	
@@ -68,7 +67,7 @@ public class ExpressController {
 		result.setResult(es.getExpressById(id));
 		
 		result.setStatus("ok");
-		result.setMessage("取得商品成功");
+		result.setMessage("取得快递单成功");
 		return result;
 	}
 }

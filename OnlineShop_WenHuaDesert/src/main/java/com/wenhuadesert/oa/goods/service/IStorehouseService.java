@@ -41,5 +41,9 @@ public interface IStorehouseService {
 	public List<StorehouseModel> getListByConditionWithPage(
 			int rows,int page,String address) throws Exception;
 	
+	//根据地址取个数
+	public int getCountByCondition(String address) throws Exception;
 	
+	//根据地址取页数
+	public int getPageCountByCondition(int rows,String address) throws Exception;
 }

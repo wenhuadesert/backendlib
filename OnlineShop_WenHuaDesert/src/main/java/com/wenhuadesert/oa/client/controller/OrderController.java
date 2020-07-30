@@ -22,27 +22,27 @@ public class OrderController {
 	private IOrderService os= null;
 	
 	@PostMapping(value = "/add")
-	public Result<String> add(@RequestBody OrderModel em) throws Exception {
+	public Result<OrderModel> add(@RequestBody OrderModel em) throws Exception {
 		os.add(em);
-		Result<String> result = new Result<String>();
+		Result<OrderModel> result = new Result<OrderModel>();
 		result.setStatus("ok");
 		result.setMessage("增加商品类别成功");
 		return result;
 	}
 	
 	@PostMapping(value = "/modify")
-	public Result<String> modify(@RequestBody OrderModel em) throws Exception {
+	public Result<OrderModel> modify(@RequestBody OrderModel em) throws Exception {
 		os.modify(em);
-		Result<String> result = new Result<String>();
+		Result<OrderModel> result = new Result<OrderModel>();
 		result.setStatus("ok");
 		result.setMessage("修改商品类别成功");
 		return result;
 	}
 	
 	@PostMapping(value="/delete")
-	public Result<String> delete(@RequestBody OrderModel em) throws Exception{
+	public Result<OrderModel> delete(@RequestBody OrderModel em) throws Exception{
 		os.delete(em);
-		Result<String> result=new Result<String>();
+		Result<OrderModel> result=new Result<OrderModel>();
 		result.setStatus("ok");
 		result.setMessage("删除商品类别成功");
 		return result;

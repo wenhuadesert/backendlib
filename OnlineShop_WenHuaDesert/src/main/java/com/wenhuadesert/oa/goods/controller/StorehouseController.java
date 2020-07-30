@@ -97,15 +97,15 @@ public class StorehouseController {
 	
 	@GetMapping(value="/list/condition/page")
 	public Result<StorehouseModel> getListByConditionWithPage(
-			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="5") int rows, 
 			@RequestParam(required=false,defaultValue="1") int page, 
 			@RequestParam(required=false,defaultValue="") String address) throws Exception{
 		Result<StorehouseModel> result=new Result<StorehouseModel>();
 		result.setPage(page);
 		result.setRows(rows);
 		System.out.println(address);
-		//result.setCount(storehouseService.getCountByCondition(departmentNo,lowAge, highAge, startJoinDate, endJoinDate, sex, nameKey));
-		//result.setPageCount(storehouseService.getPageCountByCondition(rows,departmentNo, lowAge, highAge, startJoinDate, endJoinDate, sex, nameKey));
+		result.setCount(storehouseService.getCountByCondition(address));
+		result.setPageCount(storehouseService.getPageCountByCondition(rows,address));
 		result.setList(storehouseService.getListByConditionWithPage(rows, page,address));
 		result.setStatus("OK");
 		result.setMessage("按条件检索仓库列表成功!");

@@ -16,7 +16,7 @@ public class ClientModel implements Serializable {
 	private String clipassword = null;
 	private String cliaddress = null;
 	private List<GoodsModel> goods = null;
-	private int cacount=0;
+	//private int cacount=0;
 	public int getId() {
 		return cliid;
 	}
@@ -59,10 +59,10 @@ public class ClientModel implements Serializable {
 	public void setGoods(List<GoodsModel> goods) {
 		this.goods = goods;
 	}
-	public int getCacount() {
-		return cacount;
-	}
-	public void setCacount(int cacount) {
-		this.cacount = cacount;
-	}
+//	public int getCacount() {
+//		return cacount;
+//	}
+//	public void setCacount(int cacount) {
+//		this.cacount = cacount;
+//	}
 }

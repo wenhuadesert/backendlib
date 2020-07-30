@@ -19,7 +19,11 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	
 	@Override
 	public void add(EmployeeModel em) throws Exception {
-		employeeMapper.insert(em);		
+		if(em.getPhotoFileName()!=null) {
+			employeeMapper.insertWithPhoto(em);	
+		}else {
+			employeeMapper.insert(em);				
+		}	
 	}
 
 	@Override
