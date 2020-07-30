@@ -1,5 +1,10 @@
 package com.wenhuadesert.oa.employee.controller;
 
+import java.io.File;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wenhuadesert.oa.employee.model.EmployeeModel;
 import com.wenhuadesert.oa.employee.service.IEmployeeService;
@@ -22,7 +28,14 @@ public class EmployeeController {
 	private IEmployeeService es = null; 
 	
 	@PostMapping(value = "/add")
-	public Result<String> add(@RequestBody EmployeeModel em) throws Exception {
+	public Result<String> add(EmployeeModel em, @RequestParam(required=false) MultipartFile employeePhoto) throws Exception {
+		if(employeePhoto!=null&&(!employeePhoto.isEmpty())) {
+			File dist=new File("d:/webroot/photo/"+employeePhoto.getOriginalFilename());
+			em.setPhoto(employeePhoto.getBytes());
+			employeePhoto.transferTo(dist);
+			em.setPhotoFileName(employeePhoto.getOriginalFilename());
+			em.setPhotoContentType(employeePhoto.getContentType());
+		}
 		es.add(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
