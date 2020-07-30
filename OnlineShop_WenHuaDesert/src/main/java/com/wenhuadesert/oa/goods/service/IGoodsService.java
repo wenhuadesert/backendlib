@@ -33,13 +33,15 @@ public interface IGoodsService {
 
 	public GoodsModel getByNoWithCategoryAndStorehouse(int no) throws Exception;
 
-	public List<GoodsModel> getListByConditionWithPageWithCategoryAndStorehouse(int rows, int page, double lowPrice,
-			double highPrice, String storehouseLocation, int goodsStock, String brand) throws Exception;
+	public List<GoodsModel> getListByConditionWithPageWithCategoryAndStorehouse(int rows, int page, int categoryId,
+			double lowPrice, double highPrice, int goodsStock, String brand) throws Exception;
 
-	public int getCountByCondition(double lowPrice, double highPrice, String storehouseLocation, int goodsStock, String brand) throws Exception;
-
-	public int getPageCountByCondition(int rows, double lowPrice, double highPrice, String storehouseLocation, int goodsStock, String brand)
+	public int getCountByCondition(int categoryId, double lowPrice, double highPrice, int goodsStock, String brand)
 			throws Exception;
-	public void modifyPhoto(MultipartFile goodsPhoto,int no) throws Exception;
+
+	public int getPageCountByCondition(int rows, int categoryId, double lowPrice, double highPrice, int goodsStock,
+			String brand) throws Exception;
+
+	public void modifyPhoto(MultipartFile goodsPhoto, int no) throws Exception;
 
 }
