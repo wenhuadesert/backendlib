@@ -36,13 +36,13 @@ public interface IGoodsMapper {
 			@Param("rows") int rows) throws Exception;
 
 	public List<GoodsModel> selectListByConditionWithPageWithCategoryAndStorehouse(@Param("start") int start,
-			@Param("rows") int rows, @Param("lowPrice") double lowPrice, @Param("highPrice") double highPrice,
-			@Param("storehouseLocation") String storehouseLocation, @Param("goodsStock") int goodsStock,
-			@Param("brand") String brand) throws Exception;
+			@Param("rows") int rows, @Param("categoryId") int categoryId, @Param("lowPrice") double lowPrice,
+			@Param("highPrice") double highPrice, @Param("goodsStock") int goodsStock, @Param("brand") String brand)
+			throws Exception;
 
-	public int selectCountByCondition(@Param("lowPrice") double lowPrice, @Param("highPrice") double highPrice,
-			@Param("storehouseLocation") String storehouseLocation, @Param("goodsStock") int goodsStock,
-			@Param("brand") String brand) throws Exception;
+	public int selectCountByCondition(@Param("categoryId") int categoryId, @Param("lowPrice") double lowPrice,
+			@Param("highPrice") double highPrice, @Param("goodsStock") int goodsStock, @Param("brand") String brand)
+			throws Exception;
 
 	public void updatePhoto(@Param("bytes") byte[] bytes, @Param("fileName") String fileName,
 			@Param("contentType") String contentType, @Param("no") int no) throws Exception;
