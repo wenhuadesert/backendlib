@@ -106,6 +106,15 @@ public class ClientServiceImpl implements IClientService {
 	@Override
 	public List<ClientModel> getListByAllByConditionWithPage(String name, String sex, String username, String password,
 			String address, int rows, int page) throws Exception {
+		if(name!=null&&name.trim().length()>0) {
+			name="%"+name+"%";
+		}
+		if(username!=null&&username.trim().length()>0) {
+			username="%"+username+"%";
+		}
+		if(address!=null&&address.trim().length()>0) {
+			address="%"+address+"%";
+		}
 		return clientMapper.selectListByAllByConditionWithGoodsWithPage(name, sex, username, password, address, rows * (page - 1), rows);
 	}
 

@@ -58,7 +58,28 @@ public class ClientController {
 		result.setRows(rows);
 		result.setList(cs.getListByAllWithPage(rows, page));
 		result.setStatus("ok");
-		result.setMessage("取得客户商品列表分页成功");
+		result.setMessage("取得客户列表分页成功");
+		return result;
+	}
+	
+	@RequestMapping(value="/list/condition/page")
+	public Result<ClientModel> getListByAllByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="") String sex, 
+			@RequestParam(required=false,defaultValue="") String name,
+			@RequestParam(required=false,defaultValue="") String address,
+			@RequestParam(required=false,defaultValue="") String username, 
+			@RequestParam(required=false,defaultValue="") String password) throws Exception{
+		Result<ClientModel> result=new Result<ClientModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		result.setCount(cs.getCountByAllByCondition(name, sex, username, password, address));
+		result.setPageCount(cs.getPageCountByAllByCondition(name, sex, username, password, address, rows));
+		result.setList(cs.getListByAllByConditionWithPage(name, sex, username, password, address, rows, page));
+		
+		result.setStatus("ok");
+		result.setMessage("取得客户列表分页成功");
 		return result;
 	}
 	
