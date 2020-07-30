@@ -11,7 +11,6 @@
     <result property="cliusername" column="CLIUSERNAME"/>
     <result property="clipassword" column="CLIPASSWORD"/>
     <result property="cliaddress" column="CLIADDRESS"/>
-  	<result property="cacount" column="CACOUNT"/>
   </resultMap>
   
   <resultMap id="ClientWithGoodsMap" type="Client" extends="ClientMap">
