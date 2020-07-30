@@ -1,8 +1,10 @@
 package com.wenhuadesert.oa.goods.controller;
 
 import java.io.File;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +39,7 @@ public class GoodsController {
 	public Result<String> updatePhoto(@RequestParam(required=false) MultipartFile goodsPhoto,@RequestParam(required=true) int no) throws Exception{
 		if(goodsPhoto!=null&&(!goodsPhoto.isEmpty())) {
 			goodsService.modifyPhoto(goodsPhoto,no);
-			File dist=new File("d:/webroot/photo/"+goodsPhoto.getOriginalFilename());
+			File dist=new File("d:/webroot/goodsphoto/"+goodsPhoto.getOriginalFilename());
 			goodsPhoto.transferTo(dist);
 
 		}
@@ -86,6 +88,26 @@ public class GoodsController {
 		
 		result.setStatus("ok");
 		result.setMessage("取得商品成功");
+		return result;
+	}
+	
+	@GetMapping(value="/list/condition/page")
+	public Result<GoodsModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="0") int categoryId,
+			@RequestParam(required=false,defaultValue="0") double lowPrice, 
+			@RequestParam(required=false,defaultValue="0") double highPrice,
+			@RequestParam(required=false,defaultValue="0") int  goodsStock, 
+			@RequestParam(required=false,defaultValue="") String brand) throws Exception{
+		Result<GoodsModel> result=new Result<GoodsModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		result.setCount(goodsService.getCountByCondition(categoryId,lowPrice, highPrice, goodsStock, brand));
+		result.setPageCount(goodsService.getPageCountByCondition(rows,categoryId, lowPrice, highPrice, goodsStock, brand));
+		result.setList(goodsService.getListByConditionWithPageWithCategoryAndStorehouse(rows, page, categoryId, lowPrice, highPrice, goodsStock, brand));
+		result.setStatus("OK");
+		result.setMessage("按条件检索员工列表成功!");
 		return result;
 	}
 	
