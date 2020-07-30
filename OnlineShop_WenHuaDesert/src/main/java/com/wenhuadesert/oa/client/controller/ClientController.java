@@ -72,12 +72,24 @@ public class ClientController {
 			@RequestParam(required=false,defaultValue="") String username, 
 			@RequestParam(required=false,defaultValue="") String password) throws Exception{
 		Result<ClientModel> result=new Result<ClientModel>();
+		if(name!=null&&name.trim().length()>0) {
+			name="%"+name+"%";
+		System.out.println(name);
+		}
+		if(username!=null&&username.trim().length()>0) {
+			username="%"+username+"%";
+		System.out.println(username);
+		}
+		if(address!=null&&address.trim().length()>0) {
+			address="%"+address+"%";
+			System.out.println(address);
+		}
 		result.setPage(page);
 		result.setRows(rows);
 		result.setCount(cs.getCountByAllByCondition(name, sex, username, password, address));
 		result.setPageCount(cs.getPageCountByAllByCondition(name, sex, username, password, address, rows));
 		result.setList(cs.getListByAllByConditionWithPage(name, sex, username, password, address, rows, page));
-		
+
 		result.setStatus("ok");
 		result.setMessage("取得客户列表分页成功");
 		return result;
