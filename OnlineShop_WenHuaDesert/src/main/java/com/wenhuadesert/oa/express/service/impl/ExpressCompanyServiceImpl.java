@@ -25,11 +25,13 @@ public class ExpressCompanyServiceImpl implements IExpressCompanyService {
 	@Override
 	public void delete(ExpressCompanyModel em) throws Exception {
 		expressCompanyMapper.delete(em);
+		System.out.println("11111111");
 	}
 
 	@Override
 	public void modify(ExpressCompanyModel em) throws Exception {
 		expressCompanyMapper.update(em);
+		System.out.println("11111111");
 	}
 
 	@Override

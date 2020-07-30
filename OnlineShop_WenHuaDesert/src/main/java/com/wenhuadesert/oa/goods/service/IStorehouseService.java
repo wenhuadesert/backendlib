@@ -1,6 +1,8 @@
 package com.wenhuadesert.oa.goods.service;
 
+import java.util.Date;
 import java.util.List;
+
 
 import com.wenhuadesert.oa.goods.model.StorehouseModel;
 
@@ -28,4 +30,16 @@ public interface IStorehouseService {
 
 	// 根据取得指定的对象
 	public StorehouseModel getByNo(int id) throws Exception;
+	
+	//根据地址取对象
+	public List<StorehouseModel> getByAddress(String address) throws Exception;
+	
+	//根据容量取对象
+	public List<StorehouseModel> getByCapacity(int capacity) throws Exception;
+	
+	//public int getCountByCondition(String nameKey) throws Exception;
+	public List<StorehouseModel> getListByConditionWithPage(
+			int rows,int page,String address) throws Exception;
+	
+	
 }

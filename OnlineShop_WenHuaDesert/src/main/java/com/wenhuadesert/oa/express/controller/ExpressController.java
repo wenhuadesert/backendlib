@@ -15,7 +15,7 @@ import com.wenhuadesert.oa.restresult.Result;
 
 @RestController
 @RequestMapping(value="/express")
-@CrossOrigin
+@CrossOrigin(origins = {"*", "null"})
 public class ExpressController {
 
 	@Autowired

@@ -37,5 +37,19 @@
  	<select id="selectById"  resultMap="StorehouseResultMap">
  	select * from oa_storehouse where STHID=#{storehouseId}
  	</select>
+ 	
+ 	<select id="selectByAddress"  resultMap="StorehouseResultMap">
+ 	select * from oa_storehouse where STHADDRESS=#{address}
+ 	</select>
+ 	
+ 	<select id="selectByCapacity"  resultMap="StorehouseResultMap">
+ 	select * from oa_storehouse where STHCAPACITY>=#{capacity}
+ 	</select>
+ 	
+ 	<select id="selectListByConditionWithPage" resultMap="StorehouseResultMap">
+ 	select * from oa_storehouse where STHADDRESS=#{address} limit #{start},#{rows} 
+ 	
+ 	</select>
+ 	
 
 </mapper>

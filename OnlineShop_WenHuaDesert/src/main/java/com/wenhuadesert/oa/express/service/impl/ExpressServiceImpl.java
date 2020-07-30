@@ -38,7 +38,7 @@ public class ExpressServiceImpl implements IExpressService {
 	}
 
 	@Override
-	public List<ExpressModel> getListByAllWithPage(int page, int rows) throws Exception {
+	public List<ExpressModel> getListByAllWithPage(int rows, int page) throws Exception {
 		return expressMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 

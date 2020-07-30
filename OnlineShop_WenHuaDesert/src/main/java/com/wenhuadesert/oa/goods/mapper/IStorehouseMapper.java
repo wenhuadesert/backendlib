@@ -1,9 +1,11 @@
 package com.wenhuadesert.oa.goods.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 
 import com.wenhuadesert.oa.goods.model.StorehouseModel;
 
@@ -23,4 +25,11 @@ public interface IStorehouseMapper {
 	public int selectCountByAll() throws Exception;
 
 	public StorehouseModel selectById(int no) throws Exception;
+	public List<StorehouseModel> selectByAddress(String address) throws Exception;
+	public List<StorehouseModel> selectByCapacity(int capacity) throws Exception;
+	
+	public List<StorehouseModel> selectListByConditionWithPage(
+			@Param("start") int start,@Param("rows") int rows,@Param("address") String address) throws Exception;
+	
+	
 }

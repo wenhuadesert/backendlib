@@ -1,5 +1,6 @@
 package com.wenhuadesert.oa.goods.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,24 @@ public class StorehouseServiceImpl implements IStorehouseService {
 	public StorehouseModel getByNo(int id) throws Exception {
 
 		return storehouseMapper.selectById(id);
+	}
+	@Override
+	public List<StorehouseModel> getByAddress(String address) throws Exception {
+
+		return storehouseMapper.selectByAddress(address);
+	}
+	@Override
+	public List<StorehouseModel> getByCapacity(int capacity) throws Exception {
+
+		return storehouseMapper.selectByCapacity(capacity);
+	}
+	
+	public List<StorehouseModel> getListByConditionWithPage  (
+			int rows,int page,String address) throws Exception{
+		if(address!=null&&address.trim().length()>0) {
+			return storehouseMapper.selectListByConditionWithPage(rows*(page-1), rows,address);
+		}
+		return storehouseMapper.selectListByAllWithPage(rows * (page - 1), rows);
 	}
 
 }

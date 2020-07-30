@@ -1,6 +1,9 @@
 package com.wenhuadesert.oa.goods.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.wenhuadesert.oa.goods.model.StorehouseModel;
 import com.wenhuadesert.oa.goods.service.IStorehouseService;
@@ -72,4 +76,40 @@ public class StorehouseController {
 		result.setMessage("取得仓库成功");
 		return result;
 	}
+	
+	@GetMapping(value = "/get/condition")
+	public Result<StorehouseModel> getByAddress(@RequestParam(required = true) String address) throws Exception {
+		Result<StorehouseModel> result = new Result<StorehouseModel>();
+		result.setList(storehouseService.getByAddress(address));
+		result.setStatus("ok");
+		result.setMessage("取得仓库成功");
+		return result;
+	}
+	
+	@GetMapping(value = "/get/conditionWithCapacity")
+	public Result<StorehouseModel> getByCapacity(@RequestParam(required = true) int capacity) throws Exception {
+		Result<StorehouseModel> result = new Result<StorehouseModel>();
+		result.setList(storehouseService.getByCapacity(capacity));
+		result.setStatus("ok");
+		result.setMessage("取得仓库成功");
+		return result;
+	}
+	
+	@GetMapping(value="/list/condition/page")
+	public Result<StorehouseModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="") String address) throws Exception{
+		Result<StorehouseModel> result=new Result<StorehouseModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		System.out.println(address);
+		//result.setCount(storehouseService.getCountByCondition(departmentNo,lowAge, highAge, startJoinDate, endJoinDate, sex, nameKey));
+		//result.setPageCount(storehouseService.getPageCountByCondition(rows,departmentNo, lowAge, highAge, startJoinDate, endJoinDate, sex, nameKey));
+		result.setList(storehouseService.getListByConditionWithPage(rows, page,address));
+		result.setStatus("OK");
+		result.setMessage("按条件检索仓库列表成功!");
+		return result;
+	}
+	
 }

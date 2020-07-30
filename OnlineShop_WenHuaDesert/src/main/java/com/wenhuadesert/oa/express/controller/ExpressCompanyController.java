@@ -24,6 +24,7 @@ public class ExpressCompanyController {
 
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody ExpressCompanyModel em) throws Exception {
+		
 		ecs.add(em);
 		Result<String> result = new Result<String>();
 		result.setStatus("ok");
@@ -43,6 +44,8 @@ public class ExpressCompanyController {
 	@PostMapping(value="/delete")
 	public Result<String> delete(@RequestBody ExpressCompanyModel em) throws Exception{
 		ecs.delete(em);
+		
+		
 		Result<String> result=new Result<String>();
 		result.setStatus("ok");
 		result.setMessage("删除成功");

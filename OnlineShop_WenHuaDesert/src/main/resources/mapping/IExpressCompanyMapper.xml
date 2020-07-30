@@ -7,14 +7,14 @@
   <resultMap id="ExpressCompanyMap" type="ExpressCompany">
     <id property="excid" column="EXCID"/>
     <result property="excname" column="EXCNAME"/>
-    <result property="excphone" column="EXCPHONE"/>
+    <result property="excphone" column="EXCTELEPHONE"/>
   </resultMap>
   
   <insert id="insert" parameterType="ExpressCompany" keyProperty="excid"   keyColumn="EXCID"  useGeneratedKeys="true">
-  insert into oa_expresscompany (EXCID, EXCNAME, EXCPHONE) VALUES (#{excid},#{excname},#{excphone})
+  insert into oa_expresscompany (EXCID, EXCNAME, EXCTELEPHONE) VALUES (#{excid},#{excname},#{excphone})
   </insert>
   <update id="update">
-  update oa_expresscompany set EXCNAME = #{excname},EXCPHONE=#{excphone} where EXCID = #{excid}
+  update oa_expresscompany set EXCNAME = #{excname},EXCTELEPHONE=#{excphone} where EXCID = #{excid}
   </update>
   <delete id="delete">
   delete from oa_expresscompany where EXCID = #{excid}
@@ -29,7 +29,7 @@
     and EXCNAME = #{excname}
     </if>
     <if test="excphone!=0">
-    and EXCPHONE=#{excphone}
+    and EXCTELEPHONE=#{excphone}
     </if>
   </where>
   </select>
@@ -43,7 +43,7 @@
     and EXCNAME = #{excname}
     </if>
     <if test="excphone!=0">
-    and EXCPHONE=#{excphone}
+    and EXCTELEPHONE=#{excphone}
     </if>
   </where>
   limit #{start}, #{rows}
