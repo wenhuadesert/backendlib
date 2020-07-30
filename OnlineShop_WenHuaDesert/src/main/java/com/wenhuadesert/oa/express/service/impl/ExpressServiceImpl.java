@@ -11,12 +11,12 @@ import com.wenhuadesert.oa.express.model.ExpressModel;
 import com.wenhuadesert.oa.express.service.IExpressService;
 
 @Service("expressServiceSM")
-@Transactional //环绕事务Advice的切入点
+@Transactional // 环绕事务Advice的切入点
 public class ExpressServiceImpl implements IExpressService {
 
 	@Autowired
 	private IExpressMapper expressMapper = null;
-	
+
 	@Override
 	public void add(ExpressModel em) throws Exception {
 		expressMapper.insert(em);
@@ -38,8 +38,8 @@ public class ExpressServiceImpl implements IExpressService {
 	}
 
 	@Override
-	public List<ExpressModel> getListByAllWithPage(int page, int rows) throws Exception {
-		return expressMapper.selectListByAllWithPage(rows * (page - 1), rows);
+	public List<ExpressModel> getListByAllWithPage(int rows, int page) throws Exception {
+		return expressMapper.selectListByAllWithCompanyWithOrderWithPage(rows * (page - 1), rows);
 	}
 
 	@Override

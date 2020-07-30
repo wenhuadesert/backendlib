@@ -18,11 +18,11 @@
     <association property="order" resultMap="com.wenhuadesert.oa.client.mapper.IOrderMapper.OrderMap"/>
   </resultMap>
   
-  <insert id="insert" parameterType="Express" keyProperty="expressId"   keyColumn="EXPID"  useGeneratedKeys="true">
-  insert into oa_express (EXPID, EXPARRIVED, EXCID, ORDID) VALUES (#{expid},#{isArrived}, #{expressCompany.id}, #{order.id})
+  <insert id="insert" parameterType="Express" keyProperty="expid"   keyColumn="EXPID"  useGeneratedKeys="true">
+  insert into oa_express (EXPID, EXPARRIVED, EXCID, ORDNO) VALUES (#{expid},#{isArrived}, #{expressCompany.id}, #{order.id})
   </insert>
   <update id="update">
-  update oa_express set EXPARRIVED = #{isArrived}, EXCID=#{expressCompany.id}, ORDID=#{order.id} where EXPID = #{expid}
+  update oa_express set EXPARRIVED = #{isArrived}, EXCID=#{expressCompany.id}, ORDNO=#{order.id} where EXPID = #{expid}
   </update>
   <delete id="delete">
   delete from oa_express where EXPID = #{expid}
@@ -73,11 +73,11 @@
   limit #{start}, #{rows}
   </select>
   <select id="selectListByAllWithOrderWithPage" resultMap="ExpressWithOrderMap">
-  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID 
+  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDNO=exc.ORDID 
   limit #{start}, #{rows}
   </select>
   <select id="selectListByAllWithCompanyWithOrderWithPage" resultMap="ExpressWithCompanyWithOrderMap">
-  select exp.*, ord.* from oa_express exp inner join oa_order ord on exp.ORDID=exc.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
+  select exp.*, ord.*,exc.* from oa_express exp inner join oa_order ord on exp.ORDNO=ord.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID
   limit #{start}, #{rows}
   </select>
   <select id="selectListByAllByConditionWithCompanyWithPage" resultMap="ExpressWithCompanyMap">
@@ -93,8 +93,8 @@
   limit #{start}, #{rows}
   </select>
   
-  <select id="selectExpressById" resultMap="ExpressMap">
-  select * from oa_express where EXCID = #{expid}
+  <select id="selectExpressById" resultMap="ExpressWithCompanyWithOrderMap">
+  select exp.*, ord.*,exc.* from oa_express exp inner join oa_order ord on exp.ORDNO=ord.ORDID inner join oa_expresscompany exc on exp.EXCID=exc.EXCID where exp.EXPID = #{expid}
   </select>
   <select id="selectCountByAll" resultType="_int">
   select count(*) from oa_express
