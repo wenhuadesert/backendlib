@@ -10,7 +10,10 @@
 		<result property="goodsTag" column="GOTAG"/>
 		<result property="price" column="GOPRICE"/>
 		<result property="goodsStock" column="GOSTOCK"/>
-		<result property="brand" column="BRAND"/>		
+		<result property="brand" column="BRAND"/>	
+		<result property="photo" column="PHOTO"/>
+		<result property="photoContentType" column="PHOTOCONTENTTYPE"/>
+		<result property="photoFileName" column="PHOTOFILENAME"/>
   		<result property="cartCount" column="CACOUNT"/>
 	</resultMap>
  
