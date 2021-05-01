@@ -14,6 +14,7 @@
 		<result property="photo" column="PHOTO"/>
 		<result property="photoContentType" column="PHOTOCONTENTTYPE"/>
 		<result property="photoFileName" column="PHOTOFILENAME"/>
+		<result property="cartCount" column="CACOUNT"/>
 	</resultMap>
  
  

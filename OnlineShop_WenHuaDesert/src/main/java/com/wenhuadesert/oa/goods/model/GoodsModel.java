@@ -16,7 +16,7 @@ public class GoodsModel implements Serializable {
 	private String photoContentType = null; // 照片类型
 	private StorehouseModel storehouse = null;
 	private CategoryModel category = null;
-
+	private int cartCount = 0;//购车中的数量
 	public int getGoodsId() {
 		return goodsId;
 	}
@@ -96,5 +96,12 @@ public class GoodsModel implements Serializable {
 	public void setPhotoContentType(String photoContentType) {
 		this.photoContentType = photoContentType;
 	}
+	
+	public int getCartCount() {
+		return cartCount;
+	}
 
+	public void setCartCount(int cartCount) {
+		this.cartCount = cartCount;
+	}
 }
